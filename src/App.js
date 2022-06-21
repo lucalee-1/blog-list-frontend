@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
+import {blogService} from './services/blogs';
 import Blog from './components/Blog';
 import LoginForm from './components/LoginForm';
-import blogService from './services/blogs';
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
