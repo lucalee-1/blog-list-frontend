@@ -19,6 +19,7 @@ const LoginForm = ({setUser}) => {
     e.preventDefault()
     try {
       const user = await loginService.login(formData)
+      window.localStorage.setItem('loggedUser', JSON.stringify(user))
       setUser(user)
       setFormData(initialFormData);
     } catch (error) {
