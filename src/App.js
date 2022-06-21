@@ -3,10 +3,12 @@ import { blogService } from './services/blogs';
 import Blog from './components/Blog';
 import LoginForm from './components/LoginForm';
 import NewBlogForm from './components/NewBlogForm';
+import Notification from './components/Notification';
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -15,30 +17,37 @@ const App = () => {
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
+      const user = JSON.parse(loggedUserJSON);
       setUser(user);
-      blogService.setToken(user.token)
+      blogService.setToken(user.token);
     }
   }, []);
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser');
     setUser(null);
+    setNotification({ text: 'Successfully logged out' });
   };
 
   if (user === null) {
-    return <LoginForm setUser={setUser} />;
+    return (
+      <>
+        <Notification notification={notification} setNotification={setNotification} />
+        <LoginForm setUser={setUser} setNotification={setNotification} />
+      </>
+    );
   }
   return (
     <div>
       <h2>Blogs</h2>
+      <Notification notification={notification} setNotification={setNotification} />
       <p>
         Hello, {user.name}{' '}
         <button type="button" onClick={handleLogout}>
           Log Out
         </button>
       </p>
-      <NewBlogForm blogs={blogs} setBlogs={setBlogs}/>
+      <NewBlogForm blogs={blogs} setBlogs={setBlogs} setNotification={setNotification} />
       <h3>Blog List</h3>
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />

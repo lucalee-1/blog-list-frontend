@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { loginService } from '../services/login';
 import { blogService } from '../services/blogs';
 
-const initialFormData = { username: '', password: '' }
+const initialFormData = { username: '', password: '' };
 
-const LoginForm = ({setUser}) => {
+const LoginForm = ({ setUser, setNotification }) => {
   const [formData, setFormData] = useState(initialFormData);
 
   const { username, password } = formData;
@@ -17,16 +17,17 @@ const LoginForm = ({setUser}) => {
   };
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const user = await loginService.login(formData)
-      window.localStorage.setItem('loggedUser', JSON.stringify(user))
-      blogService.setToken(user.token)
-      setUser(user)
+      const user = await loginService.login(formData);
+      window.localStorage.setItem('loggedUser', JSON.stringify(user));
+      blogService.setToken(user.token);
+      setUser(user);
+      setNotification({ text: `Welcome back, ${user.name}!` });
       setFormData(initialFormData);
     } catch (error) {
+      setNotification({ text: 'Invalid username or password', color: 'red' });
       setFormData(initialFormData);
-      console.log(error)
     }
   };
   return (

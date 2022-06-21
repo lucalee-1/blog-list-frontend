@@ -3,20 +3,20 @@ import { blogService } from '../services/blogs';
 
 const initialFormData = { title: '', author: '', url: '' };
 
-const NewBlogForm = ({blogs, setBlogs}) => {
+const NewBlogForm = ({ blogs, setBlogs, setNotification }) => {
   const [formData, setFormData] = useState(initialFormData);
   const { title, author, url } = formData;
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const createdBlog = await blogService.create(formData)      
-      setBlogs(blogs.concat(createdBlog))
-      setFormData(initialFormData)
-            
+      const createdBlog = await blogService.create(formData);
+      setBlogs(blogs.concat(createdBlog));
+      setNotification({ text: `A new blog "${title}" by ${author} was added` });
+      setFormData(initialFormData);
     } catch (error) {
-      setFormData(initialFormData)      
-      console.log(error)
+      setFormData(initialFormData);
+      setNotification({ text: `Error: blog could not be added`, color: 'red' });
     }
   };
 
@@ -28,18 +28,18 @@ const NewBlogForm = ({blogs, setBlogs}) => {
       <h3>Add New</h3>
       <form onSubmit={onSubmit}>
         <div>
-        <label htmlFor="title">Title</label>
-        <input type="text" id="title" onChange={onChange} value={title} />
+          <label htmlFor="title">Title</label>
+          <input type="text" id="title" onChange={onChange} value={title} required />
         </div>
         <div>
-        <label htmlFor="author">Author</label>
-        <input type="text" id="author" onChange={onChange} value={author} />
+          <label htmlFor="author">Author</label>
+          <input type="text" id="author" onChange={onChange} value={author} required />
         </div>
         <div>
-        <label htmlFor="url">URL</label>
-        <input type="text" id="url" onChange={onChange} value={url} />
+          <label htmlFor="url">URL</label>
+          <input type="text" id="url" onChange={onChange} value={url} required />
         </div>
-        <button type='submit'>Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
