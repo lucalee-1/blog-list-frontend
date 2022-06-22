@@ -34,9 +34,9 @@ const App = () => {
       setBlogs(blogs.concat(createdBlog));
       setNotification({ text: `A new blog "${newBlog.title}" by ${newBlog.author} was added` });
     } catch (error) {
-      setNotification({ text: `Error: blog could not be added`, color: 'red' });
+      setNotification({ text: 'Error: blog could not be added', color: 'red' });
     }
-  }
+  };
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser');
@@ -58,8 +58,8 @@ const App = () => {
     try {
       if (window.confirm(`Delete blog "${blog.title}"?`)) {
         await blogService.deleteBlog(blog.id);
-        setBlogs(blogs.filter((b) => b.id !== blog.id))
-        setNotification({text: `Successfully deleted blog "${blog.title}"`})
+        setBlogs(blogs.filter((b) => b.id !== blog.id));
+        setNotification({ text: `Successfully deleted blog "${blog.title}"` });
       }
     } catch (error) {
       setNotification({ text: 'Error: could note delete this blog', color: 'red' });
@@ -91,7 +91,13 @@ const App = () => {
       </Togglable>
       <h3>Blog List</h3>
       {sortedBlogs.map((blog) => (
-        <BlogItem key={blog.id} blog={blog} user={user} handleLike={handleLike} handleDelete={handleDelete}/>
+        <BlogItem
+          key={blog.id}
+          blog={blog}
+          user={user}
+          handleLike={handleLike}
+          handleDelete={handleDelete}
+        />
       ))}
     </div>
   );
