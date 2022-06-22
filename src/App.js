@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { blogService } from './services/blogs';
-import Blog from './components/Blog';
+import BlogItem from './components/BlogItem';
 import LoginForm from './components/LoginForm';
 import NewBlogForm from './components/NewBlogForm';
 import Notification from './components/Notification';
@@ -53,7 +53,7 @@ const App = () => {
       </Togglable>
       <h3>Blog List</h3>
       {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
+        <BlogItem key={blog.id} blog={blog} />
       ))}
     </div>
   );
