@@ -12,7 +12,11 @@ const App = () => {
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
+    const fetchBlogs = async () => {
+      const blogs = await blogService.getAll();
+      setBlogs(blogs);
+    };
+    fetchBlogs();
   }, []);
 
   useEffect(() => {
@@ -29,6 +33,15 @@ const App = () => {
     setUser(null);
     setNotification({ text: 'Successfully logged out' });
   };
+
+  const handleLike = async (blog) => {
+    const blogUpdate = { likes: ++blog.likes };
+    const updatedBlog = await blogService.update(blog.id, blogUpdate);
+    setBlogs(blogs.map((b) => (b.id === blog.id ? updatedBlog : b)));
+  };
+
+  let sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
+    
 
   if (user === null) {
     return (
@@ -49,11 +62,11 @@ const App = () => {
         </button>
       </p>
       <Togglable text="Add New Blog">
-      <NewBlogForm blogs={blogs} setBlogs={setBlogs} setNotification={setNotification} />
+        <NewBlogForm blogs={blogs} setBlogs={setBlogs} setNotification={setNotification} />
       </Togglable>
       <h3>Blog List</h3>
-      {blogs.map((blog) => (
-        <BlogItem key={blog.id} blog={blog} />
+      {sortedBlogs.map((blog) => (
+        <BlogItem key={blog.id} blog={blog} handleLike={handleLike} />
       ))}
     </div>
   );
