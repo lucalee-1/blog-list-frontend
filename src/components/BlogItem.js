@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const BlogItem = ({ blog, handleLike }) => {
+const BlogItem = ({ blog, user, handleLike, handleDelete }) => {
   const [showDetails, setshowDetails] = useState(false);
 
   const hideDetails = { display: showDetails ? 'none' : '' };
@@ -21,7 +21,7 @@ const BlogItem = ({ blog, handleLike }) => {
   const toggleBtn = {
     marginLeft: 3,
   }
- 
+   
   return (
     <div style={blogStyle}>
       <div style={hideDetails}>
@@ -36,8 +36,10 @@ const BlogItem = ({ blog, handleLike }) => {
           Hide
         </button>
         <p>By {blog.author}</p>
-        <p>{blog.url}</p>
-        <p>Likes: {blog.likes} <button type="button" onClick={() => handleLike(blog)}>Like</button></p>    
+        <a href={blog.url}>{blog.url}</a> 
+        <p>Likes: {blog.likes} <button type="button" onClick={() => handleLike(blog)}>Like</button></p>
+        {/* blog.user field is populated by the backend only for get requests*/}
+        {(blog.user.id === user.id || blog.user === user.id) && <button type='button' onClick={() => handleDelete(blog)}>Delete</button>}            
       </div>
     </div>
   );

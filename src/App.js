@@ -36,12 +36,27 @@ const App = () => {
 
   const handleLike = async (blog) => {
     const blogUpdate = { likes: ++blog.likes };
-    const updatedBlog = await blogService.update(blog.id, blogUpdate);
-    setBlogs(blogs.map((b) => (b.id === blog.id ? updatedBlog : b)));
+    try {
+      const updatedBlog = await blogService.update(blog.id, blogUpdate);
+      setBlogs(blogs.map((b) => (b.id === blog.id ? updatedBlog : b)));
+    } catch (error) {
+      setNotification({ text: 'Error: could not like this blog', color: 'red' });
+    }
   };
 
-  let sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
-    
+  const handleDelete = async (blog) => {
+    try {
+      if (window.confirm(`Delete blog "${blog.title}"?`)) {
+        await blogService.deleteBlog(blog.id);
+        setBlogs(blogs.filter((b) => b.id !== blog.id))
+        setNotification({text: `Successfully deleted blog "${blog.title}"`})
+      }
+    } catch (error) {
+      setNotification({ text: 'Error: could note delete this blog', color: 'red' });
+    }
+  };
+
+  let sortedBlogs = blogs.sort((a, b) => b.likes - a.likes);
 
   if (user === null) {
     return (
@@ -66,7 +81,7 @@ const App = () => {
       </Togglable>
       <h3>Blog List</h3>
       {sortedBlogs.map((blog) => (
-        <BlogItem key={blog.id} blog={blog} handleLike={handleLike} />
+        <BlogItem key={blog.id} blog={blog} user={user} handleLike={handleLike} handleDelete={handleDelete}/>
       ))}
     </div>
   );

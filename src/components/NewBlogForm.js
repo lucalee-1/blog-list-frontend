@@ -11,6 +11,7 @@ const NewBlogForm = ({ blogs, setBlogs, setNotification }) => {
     e.preventDefault();
     try {
       const createdBlog = await blogService.create(formData);
+      console.log(createdBlog);
       setBlogs(blogs.concat(createdBlog));
       setNotification({ text: `A new blog "${title}" by ${author} was added` });
       setFormData(initialFormData);
