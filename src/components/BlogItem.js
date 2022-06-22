@@ -38,7 +38,7 @@ const BlogItem = ({ blog, user, handleLike, handleDelete }) => {
         <p>By {blog.author}</p>
         <a href={blog.url}>{blog.url}</a> 
         <p>Likes: {blog.likes} <button type="button" onClick={() => handleLike(blog)}>Like</button></p>
-        {/* blog.user field is populated by the backend only for get requests*/}
+        {/* blog.user field is only populated by the backend for get requests*/}
         {(blog.user.id === user.id || blog.user === user.id) && <button type='button' onClick={() => handleDelete(blog)}>Delete</button>}            
       </div>
     </div>

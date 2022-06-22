@@ -28,6 +28,16 @@ const App = () => {
     }
   }, []);
 
+  const handleCreate = async (newBlog) => {
+    try {
+      const createdBlog = await blogService.create(newBlog);
+      setBlogs(blogs.concat(createdBlog));
+      setNotification({ text: `A new blog "${newBlog.title}" by ${newBlog.author} was added` });
+    } catch (error) {
+      setNotification({ text: `Error: blog could not be added`, color: 'red' });
+    }
+  }
+
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser');
     setUser(null);
@@ -77,7 +87,7 @@ const App = () => {
         </button>
       </p>
       <Togglable text="Add New Blog">
-        <NewBlogForm blogs={blogs} setBlogs={setBlogs} setNotification={setNotification} />
+        <NewBlogForm handleCreate={handleCreate} />
       </Togglable>
       <h3>Blog List</h3>
       {sortedBlogs.map((blog) => (
