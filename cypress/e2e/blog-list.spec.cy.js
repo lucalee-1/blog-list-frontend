@@ -24,7 +24,6 @@ describe('Blog app', function () {
 
       cy.contains('Hello, Test User');
     });
-
     it('fails with wrong credentials', function () {
       cy.get('#username').type('testuser');
       cy.get('#password').type('wrongpw');
@@ -34,6 +33,21 @@ describe('Blog app', function () {
         .should('contain', 'Invalid username or password')
         .and('have.css', 'color', 'rgb(255, 0, 0)')
         .and('have.css', 'border-style', 'solid');
+    });
+  });
+
+  describe('When logged in', function () {
+    beforeEach(function () {
+      cy.login({ username: 'testuser', password: 'testuserpassword' });
+    });
+
+    it('A blog can be created', function () {
+      cy.contains('Add New Blog').click();
+      cy.get('#title').type('A test blog');
+      cy.get('#author').type('Tester');
+      cy.get('#url').type('testblog.com');
+      cy.contains('Save').click();
+      cy.contains('A test blog');
     });
   });
 });
