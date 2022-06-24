@@ -49,5 +49,30 @@ describe('Blog app', function () {
       cy.contains('Save').click();
       cy.contains('A test blog');
     });
+
+    describe('and a blog exists', function () {
+      beforeEach(function () {
+        cy.createBlog({ title: 'A test blog', author: 'Tester', url: 'testblog.com' });
+      });
+
+      it('it can be liked', function () {
+        cy.get('#showBtn').click();
+        cy.contains('Likes: 0');
+        cy.get('#likeBtn').click();
+        cy.contains('Likes: 1');
+        cy.get('#likeBtn').click();
+        cy.contains('Likes: 2');
+      });
+      it('it can be deleted', function () {
+        cy.get('#showBtn').click();
+        cy.contains('By Tester');
+        cy.get('#deleteBtn').click();
+        cy.get('.notification')
+          .should('contain', 'Successfully deleted blog "A test blog"')
+          .and('have.css', 'color', 'rgb(46, 149, 81)')
+          .and('have.css', 'border-style', 'solid');
+        cy.contains('By Tester').should('not.exist');
+      });
+    });
   });
 });

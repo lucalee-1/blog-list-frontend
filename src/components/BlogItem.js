@@ -19,35 +19,37 @@ const BlogItem = ({ blog, user, handleLike, handleDelete }) => {
     marginBottom: 5,
   };
 
-  const toggleBtn = {
+  const itemBtn = {
     marginLeft: 3,
   };
 
   return (
     <div style={blogStyle}>
-      <div style={hideDetails} className='noDetailsDiv'>
+      <div style={hideDetails} className="noDetailsDiv">
         <span>{blog.title} </span>
-        <span>-<i>{blog.author}</i></span>
-        <button type="button" style={toggleBtn} onClick={toggleDetails}>
+        <span>
+          -<i>{blog.author}</i>
+        </span>
+        <button type="button" id="showBtn" style={itemBtn} onClick={toggleDetails}>
           Show
         </button>
       </div>
-      <div style={revealDetails} className='detailsDiv'>
+      <div style={revealDetails} className="detailsDiv">
         <span>{blog.title}</span>
-        <button type="button" style={toggleBtn} onClick={toggleDetails}>
+        <button type="button" id="hideBtn" style={itemBtn} onClick={toggleDetails}>
           Hide
         </button>
         <p>By {blog.author}</p>
         <a href={blog.url}>{blog.url}</a>
         <p>
-          Likes: {blog.likes}{' '}
-          <button type="button" onClick={() => handleLike(blog)}>
+          Likes: {blog.likes}
+          <button type="button" id="likeBtn" style={itemBtn} onClick={() => handleLike(blog)}>
             Like
           </button>
         </p>
         {/* blog.user field is only populated by the backend for get requests*/}
         {(blog.user.id === user.id || blog.user === user.id) && (
-          <button type="button" onClick={() => handleDelete(blog)}>
+          <button type="button" id="deleteBtn" onClick={() => handleDelete(blog)}>
             Delete
           </button>
         )}
