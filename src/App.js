@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { blogService } from './services/blogs';
+import { loginService } from './services/login';
 import BlogItem from './components/BlogItem';
 import LoginForm from './components/LoginForm';
 import NewBlogForm from './components/NewBlogForm';
@@ -27,6 +28,18 @@ const App = () => {
       blogService.setToken(user.token);
     }
   }, []);
+
+  const handleLogin = async (credentials) => {
+    try {
+      const user = await loginService.login(credentials);
+      window.localStorage.setItem('loggedUser', JSON.stringify(user));
+      blogService.setToken(user.token);
+      setUser(user);
+      setNotification({ text: `Welcome back, ${user.name}!` });
+    } catch (error) {
+      setNotification({ text: 'Invalid username or password', color: 'red' });
+    }
+  };
 
   const handleCreate = async (newBlog) => {
     try {
@@ -72,7 +85,7 @@ const App = () => {
     return (
       <>
         <Notification notification={notification} setNotification={setNotification} />
-        <LoginForm setUser={setUser} setNotification={setNotification} />
+        <LoginForm handleLogin={handleLogin} />
       </>
     );
   }
