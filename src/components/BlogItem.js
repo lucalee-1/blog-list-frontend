@@ -25,13 +25,14 @@ const BlogItem = ({ blog, user, handleLike, handleDelete }) => {
 
   return (
     <div style={blogStyle}>
-      <div style={hideDetails}>
-        <span>{blog.title}</span>
+      <div style={hideDetails} className='noDetailsDiv'>
+        <span>{blog.title} </span>
+        <span>-<i>{blog.author}</i></span>
         <button type="button" style={toggleBtn} onClick={toggleDetails}>
           Show
         </button>
       </div>
-      <div style={revealDetails}>
+      <div style={revealDetails} className='detailsDiv'>
         <span>{blog.title}</span>
         <button type="button" style={toggleBtn} onClick={toggleDetails}>
           Hide
