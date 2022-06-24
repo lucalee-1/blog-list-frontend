@@ -16,7 +16,7 @@ const Notification = ({ notification, setNotification }) => {
   return (
     <>
       {notification === null ? null : (
-        <div style={notificationStyle}>
+        <div className="notification" style={notificationStyle}>
           <p>{notification.text}</p>
         </div>
       )}

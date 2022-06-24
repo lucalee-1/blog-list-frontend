@@ -32,7 +32,7 @@ const LoginForm = ({ setUser, setNotification }) => {
   };
   return (
     <div>
-      <h3>Login</h3>
+      <h3>Log In</h3>
       <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="username">Username</label>
@@ -54,7 +54,7 @@ const LoginForm = ({ setUser, setNotification }) => {
             placeholder="Password"
           />
         </div>
-        <button type="submit">Log In</button>
+        <button type="submit" id='loginButton'>Log In</button>
       </form>
     </div>
   );
