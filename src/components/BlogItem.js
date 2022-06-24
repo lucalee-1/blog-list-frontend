@@ -24,32 +24,37 @@ const BlogItem = ({ blog, user, handleLike, handleDelete }) => {
   };
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className="blogItem">
       <div style={hideDetails} className="noDetailsDiv">
         <span>{blog.title} </span>
         <span>
           -<i>{blog.author}</i>
         </span>
-        <button type="button" id="showBtn" style={itemBtn} onClick={toggleDetails}>
+        <button type="button" className="showBtn" style={itemBtn} onClick={toggleDetails}>
           Show
         </button>
       </div>
       <div style={revealDetails} className="detailsDiv">
         <span>{blog.title}</span>
-        <button type="button" id="hideBtn" style={itemBtn} onClick={toggleDetails}>
+        <button type="button" className="hideBtn" style={itemBtn} onClick={toggleDetails}>
           Hide
         </button>
         <p>By {blog.author}</p>
         <a href={blog.url}>{blog.url}</a>
         <p>
           Likes: {blog.likes}
-          <button type="button" id="likeBtn" style={itemBtn} onClick={() => handleLike(blog)}>
+          <button
+            type="button"
+            className="likeBtn"
+            style={itemBtn}
+            onClick={() => handleLike(blog)}
+          >
             Like
           </button>
         </p>
         {/* blog.user field is only populated by the backend for get requests*/}
         {(blog.user.id === user.id || blog.user === user.id) && (
-          <button type="button" id="deleteBtn" onClick={() => handleDelete(blog)}>
+          <button type="button" className="deleteBtn" onClick={() => handleDelete(blog)}>
             Delete
           </button>
         )}

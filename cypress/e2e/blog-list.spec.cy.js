@@ -56,22 +56,43 @@ describe('Blog app', function () {
       });
 
       it('it can be liked', function () {
-        cy.get('#showBtn').click();
+        cy.get('.showBtn').click();
         cy.contains('Likes: 0');
-        cy.get('#likeBtn').click();
+        cy.get('.likeBtn').click();
         cy.contains('Likes: 1');
-        cy.get('#likeBtn').click();
+        cy.get('.likeBtn').click();
         cy.contains('Likes: 2');
       });
       it('it can be deleted', function () {
-        cy.get('#showBtn').click();
+        cy.get('.showBtn').click();
         cy.contains('By Tester');
-        cy.get('#deleteBtn').click();
+        cy.get('.deleteBtn').click();
         cy.get('.notification')
           .should('contain', 'Successfully deleted blog "A test blog"')
           .and('have.css', 'color', 'rgb(46, 149, 81)')
           .and('have.css', 'border-style', 'solid');
         cy.contains('By Tester').should('not.exist');
+      });
+    });
+
+    describe('and multiple blogs exist', function () {
+      beforeEach(function () {
+        cy.createBlog({ title: 'No likes', author: 'Tester', url: 'testblog1.com' });
+        cy.createBlog({ title: 'Second most liked', author: 'Tester', url: 'testblog2.com' });
+        cy.createBlog({ title: 'Most liked', author: 'Tester', url: 'testblog3.com' });
+      });
+
+      it('blogs are ordered by number of likes', function () {
+        cy.get('.showBtn').eq(0).click();
+        cy.get('.showBtn').eq(1).click();
+        cy.get('.showBtn').eq(2).click();
+
+        cy.get('.likeBtn').eq(1).click();
+        cy.get('.likeBtn').eq(2).click().click();
+
+        cy.get('.blogItem').eq(0).should('contain', 'Most liked').and('contain', 'Likes: 2');
+        cy.get('.blogItem').eq(1).should('contain', 'Second most liked').and('contain', 'Likes: 1');
+        cy.get('.blogItem').eq(2).should('contain', 'No likes').and('contain', 'Likes: 0');
       });
     });
   });
