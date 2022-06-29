@@ -36,9 +36,11 @@ const LoginForm = ({ handleLogin }) => {
     <div>
       <h3>Log In</h3>
       <div className="mb-div">
-        <button type="button" onClick={handleGuestAcc}>
-          Use Guest Account
-        </button>
+        <p>
+          <button type="button" onClick={handleGuestAcc}>
+            Use Guest Account
+          </button>
+        </p>
       </div>
       <form onSubmit={onSubmit}>
         <div>
