@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { blogService } from './services/blogs';
 import { loginService } from './services/login';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { initializeBlogs } from './reducers/blogReducer';
 import { setNotification } from './reducers/notificationReducer';
 import BlogItem from './components/BlogItem';
 import LoginForm from './components/LoginForm';
@@ -10,18 +11,14 @@ import Notification from './components/Notification';
 import Togglable from './components/Togglable';
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
 
+  const blogs = useSelector((state) => state.blogs);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      const blogs = await blogService.getAll();
-      setBlogs(blogs);
-    };
-    fetchBlogs();
-  }, []);
+    dispatch(initializeBlogs());
+  }, [dispatch]);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
@@ -44,45 +41,36 @@ const App = () => {
     }
   };
 
-  const handleCreate = async (newBlog) => {
-    try {
-      const createdBlog = await blogService.create(newBlog);
-      setBlogs(blogs.concat(createdBlog));
-      dispatch(setNotification(`A new blog "${newBlog.title}" by ${newBlog.author} was added`));
-    } catch (error) {
-      dispatch(setNotification('Error: blog could not be added', 'red'));
-    }
-  };
-
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser');
     setUser(null);
     dispatch(setNotification('Successfully logged out'));
   };
 
-  const handleLike = async (blog) => {
-    const blogUpdate = { likes: ++blog.likes };
-    try {
-      const updatedBlog = await blogService.update(blog.id, blogUpdate);
-      setBlogs(blogs.map((b) => (b.id === blog.id ? updatedBlog : b)));
-    } catch (error) {
-      dispatch(setNotification('Error: could not like this blog', 'red'));
-    }
-  };
+  // const handleLike = async (blog) => {
+  //   const blogUpdate = { likes: ++blog.likes };
+  //   try {
+  //     const updatedBlog = await blogService.update(blog.id, blogUpdate);
+  //     setBlogs(blogs.map((b) => (b.id === blog.id ? updatedBlog : b)));
+  //   } catch (error) {
+  //     dispatch(setNotification('Error: could not like this blog', 'red'));
+  //   }
+  // };
 
-  const handleDelete = async (blog) => {
-    try {
-      if (window.confirm(`Delete blog "${blog.title}"?`)) {
-        await blogService.deleteBlog(blog.id);
-        setBlogs(blogs.filter((b) => b.id !== blog.id));
-        dispatch(setNotification(`Successfully deleted blog "${blog.title}"`));
-      }
-    } catch (error) {
-      dispatch(setNotification('Error: could note delete this blog', 'red'));
-    }
-  };
+  // const handleDelete = async (blog) => {
+  //   try {
+  //     if (window.confirm(`Delete blog "${blog.title}"?`)) {
+  //       await blogService.deleteBlog(blog.id);
+  //       setBlogs(blogs.filter((b) => b.id !== blog.id));
+  //       dispatch(setNotification(`Successfully deleted blog "${blog.title}"`));
+  //     }
+  //   } catch (error) {
+  //     dispatch(setNotification('Error: could note delete this blog', 'red'));
+  //   }
+  // };
 
-  let sortedBlogs = blogs.sort((a, b) => b.likes - a.likes);
+  let sortedBlogs = blogs;
+  console.log(blogs);
 
   if (user === null) {
     return (
@@ -103,17 +91,11 @@ const App = () => {
         </button>
       </p>
       <Togglable text="Add New Blog">
-        <NewBlogForm handleCreate={handleCreate} />
+        <NewBlogForm />
       </Togglable>
       <h3>Blog List</h3>
       {sortedBlogs.map((blog) => (
-        <BlogItem
-          key={blog.id}
-          blog={blog}
-          user={user}
-          handleLike={handleLike}
-          handleDelete={handleDelete}
-        />
+        <BlogItem key={blog.id} blog={blog} user={user} />
       ))}
     </div>
   );

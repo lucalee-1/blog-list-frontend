@@ -1,18 +1,24 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createBlog } from '../reducers/blogReducer';
+import { setNotification } from '../reducers/notificationReducer';
 
 const initialFormData = { title: '', author: '', url: '' };
 
-const NewBlogForm = ({ handleCreate }) => {
+const NewBlogForm = () => {
   const [formData, setFormData] = useState(initialFormData);
   const { title, author, url } = formData;
+  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      await handleCreate(formData);
+      await dispatch(createBlog(formData));
       setFormData(initialFormData);
+      dispatch(setNotification(`A new blog "${title}" by ${author} was added`));
     } catch (error) {
       setFormData(initialFormData);
+      dispatch(setNotification('Error: blog could not be added', 'red'));
     }
   };
   const onChange = (e) => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const BlogItem = ({ blog, user, handleLike, handleDelete }) => {
+const BlogItem = ({ blog, user }) => {
   const [showDetails, setshowDetails] = useState(false);
 
   const hideDetails = { display: showDetails ? 'none' : '' };
@@ -10,6 +10,9 @@ const BlogItem = ({ blog, user, handleLike, handleDelete }) => {
   const toggleDetails = () => {
     setshowDetails(!showDetails);
   };
+
+  const handleLike = () => {};
+  const handleDelete = () => {};
 
   const blogStyle = {
     paddingTop: 10,
@@ -66,8 +69,6 @@ const BlogItem = ({ blog, user, handleLike, handleDelete }) => {
 BlogItem.propTypes = {
   blog: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  handleLike: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
 };
 
 export default BlogItem;
