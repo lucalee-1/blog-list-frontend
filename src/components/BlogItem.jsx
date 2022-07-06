@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { handleLike } from '../reducers/blogReducer';
 import PropTypes from 'prop-types';
 
 const BlogItem = ({ blog, user }) => {
   const [showDetails, setshowDetails] = useState(false);
+  const dispatch = useDispatch();
 
   const hideDetails = { display: showDetails ? 'none' : '' };
   const revealDetails = { display: showDetails ? '' : 'none' };
@@ -11,7 +14,6 @@ const BlogItem = ({ blog, user }) => {
     setshowDetails(!showDetails);
   };
 
-  const handleLike = () => {};
   const handleDelete = () => {};
 
   const blogStyle = {
@@ -50,7 +52,7 @@ const BlogItem = ({ blog, user }) => {
             type="button"
             className="likeBtn"
             style={itemBtn}
-            onClick={() => handleLike(blog)}
+            onClick={() => dispatch(handleLike(blog))}
           >
             Like
           </button>
