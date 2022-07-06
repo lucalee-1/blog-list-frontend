@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { blogService } from './services/blogs';
 import { loginService } from './services/login';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { initializeBlogs } from './reducers/blogReducer';
 import { setNotification } from './reducers/notificationReducer';
-import BlogItem from './components/BlogItem';
+import Blogs from './components/Blogs';
 import LoginForm from './components/LoginForm';
 import NewBlogForm from './components/NewBlogForm';
 import Notification from './components/Notification';
@@ -13,7 +13,6 @@ import Togglable from './components/Togglable';
 const App = () => {
   const [user, setUser] = useState(null);
 
-  const blogs = useSelector((state) => state.blogs);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -69,9 +68,6 @@ const App = () => {
   //   }
   // };
 
-  let sortedBlogs = blogs;
-  console.log(blogs);
-
   if (user === null) {
     return (
       <>
@@ -93,10 +89,7 @@ const App = () => {
       <Togglable text="Add New Blog">
         <NewBlogForm />
       </Togglable>
-      <h3>Blog List</h3>
-      {sortedBlogs.map((blog) => (
-        <BlogItem key={blog.id} blog={blog} user={user} />
-      ))}
+      <Blogs user={user} />
     </div>
   );
 };
