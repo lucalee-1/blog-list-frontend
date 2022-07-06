@@ -33,14 +33,15 @@ export const initializeBlogs = () => {
     }
   };
 };
+
 export const createBlog = (blog) => {
   return async (dispatch) => {
     try {
       const createdBlog = await blogService.create(blog);
       dispatch(appendBlog(createdBlog));
-      dispatch(setNotification(`Successfully created new blog "${blog.title}"`));
+      dispatch(setNotification(`A new blog "${blog.title}" by ${blog.author} was added`));
     } catch (error) {
-      dispatch(setNotification('Error: failed to create new blog', 'red'));
+      dispatch(setNotification('Error: failed to add new blog', 'red'));
     }
   };
 };
