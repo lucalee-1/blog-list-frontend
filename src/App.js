@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { initializeBlogs } from './reducers/blogReducer';
 import { initializeUser } from './reducers/userReducer';
-import Blogs from './components/Blogs';
 import LoginForm from './components/LoginForm';
-import NewBlogForm from './components/NewBlogForm';
 import Notification from './components/Notification';
-import Togglable from './components/Togglable';
 import Header from './components/Header';
+import Users from './pages/Users';
+import BlogList from './pages/BlogList';
 
 const App = () => {
   const user = useSelector((state) => state.user);
@@ -33,10 +33,12 @@ const App = () => {
     <>
       <Notification />
       <Header />
-      <Togglable text="Add New Blog">
-        <NewBlogForm />
-      </Togglable>
-      <Blogs />
+      <Router>
+        <Routes>
+          <Route path="/" element={<BlogList />} />
+          <Route path="/users" element={<Users />} />
+        </Routes>
+      </Router>
     </>
   );
 };
