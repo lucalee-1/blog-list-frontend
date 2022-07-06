@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { handleLike } from '../reducers/blogReducer';
+import { likeHandler, deleteHandler } from '../reducers/blogReducer';
 import PropTypes from 'prop-types';
 
 const BlogItem = ({ blog, user }) => {
@@ -13,8 +13,6 @@ const BlogItem = ({ blog, user }) => {
   const toggleDetails = () => {
     setshowDetails(!showDetails);
   };
-
-  const handleDelete = () => {};
 
   const blogStyle = {
     paddingTop: 10,
@@ -52,14 +50,14 @@ const BlogItem = ({ blog, user }) => {
             type="button"
             className="likeBtn"
             style={itemBtn}
-            onClick={() => dispatch(handleLike(blog))}
+            onClick={() => dispatch(likeHandler(blog))}
           >
             Like
           </button>
         </p>
         {/* blog.user field is only populated by the backend for get requests*/}
         {(blog.user.id === user.id || blog.user === user.id) && (
-          <button type="button" className="deleteBtn" onClick={() => handleDelete(blog)}>
+          <button type="button" className="deleteBtn" onClick={() => dispatch(deleteHandler(blog))}>
             Delete
           </button>
         )}

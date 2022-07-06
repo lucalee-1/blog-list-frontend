@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { blogService } from '../services/blogs';
+import { setNotification } from './notificationReducer';
 
 const blogSlice = createSlice({
   name: 'blogs',
@@ -15,29 +16,60 @@ const blogSlice = createSlice({
       const updatedBlog = action.payload;
       return state.map((blog) => (blog.id !== updatedBlog.id ? blog : updatedBlog));
     },
+    deleteBlog(state, action) {
+      const id = action.payload;
+      return state.filter((blog) => blog.id !== id);
+    },
   },
 });
 
 export const initializeBlogs = () => {
   return async (dispatch) => {
-    const blogs = await blogService.getAll();
-    dispatch(setBlogs(blogs));
+    try {
+      const blogs = await blogService.getAll();
+      dispatch(setBlogs(blogs));
+    } catch (error) {
+      dispatch(setNotification('Error: failed to fetch blogs', 'red'));
+    }
   };
 };
 export const createBlog = (blog) => {
   return async (dispatch) => {
-    const createdBlog = await blogService.create(blog);
-    dispatch(appendBlog(createdBlog));
+    try {
+      const createdBlog = await blogService.create(blog);
+      dispatch(appendBlog(createdBlog));
+      dispatch(setNotification(`Successfully created new blog "${blog.title}"`));
+    } catch (error) {
+      dispatch(setNotification('Error: failed to create new blog', 'red'));
+    }
   };
 };
 
-export const handleLike = (blog) => {
+export const likeHandler = (blog) => {
   return async (dispatch) => {
     const blogUpdate = { likes: blog.likes + 1 };
-    const updatedBlog = await blogService.update(blog.id, blogUpdate);
-    dispatch(likeBlog(updatedBlog));
+    try {
+      const updatedBlog = await blogService.update(blog.id, blogUpdate);
+      dispatch(likeBlog(updatedBlog));
+    } catch (error) {
+      dispatch(setNotification('Error: failed to like blog', 'red'));
+    }
   };
 };
 
-export const { setBlogs, appendBlog, likeBlog } = blogSlice.actions;
+export const deleteHandler = (blog) => {
+  return async (dispatch) => {
+    if (window.confirm(`Delete blog "${blog.title}"?`)) {
+      try {
+        await blogService.deleteBlog(blog.id);
+        dispatch(deleteBlog(blog.id));
+        dispatch(setNotification(`Successfully deleted blog "${blog.title}"`));
+      } catch (error) {
+        dispatch(setNotification(`Error: failed to delete blog "${blog.title}"`, 'red'));
+      }
+    }
+  };
+};
+
+export const { setBlogs, appendBlog, likeBlog, deleteBlog } = blogSlice.actions;
 export default blogSlice.reducer;
