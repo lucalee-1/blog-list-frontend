@@ -14,10 +14,13 @@ const notificationSlice = createSlice({
   },
 });
 
+let timeoutId;
+
 export const setNotification = (text, color, duration) => {
   return (dispatch) => {
     dispatch(showNotification({ text, color }));
-    setTimeout(() => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
       dispatch(clearNotification());
     }, duration || 5000);
   };
