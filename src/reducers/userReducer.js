@@ -44,7 +44,7 @@ export const handleLogin = (credentials) => {
 export const handleLogout = () => {
   return (dispatch) => {
     window.localStorage.removeItem('loggedUser');
-    setUser(null);
+    dispatch(deleteUser());
     dispatch(setNotification('Successfully logged out'));
   };
 };
