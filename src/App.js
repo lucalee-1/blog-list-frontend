@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
-import { blogService } from './services/blogs';
-import { loginService } from './services/login';
-import { useDispatch } from 'react-redux';
+import {  useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { initializeBlogs } from './reducers/blogReducer';
-import { setNotification } from './reducers/notificationReducer';
+import { initializeUser } from './reducers/userReducer';
 import Blogs from './components/Blogs';
 import LoginForm from './components/LoginForm';
 import NewBlogForm from './components/NewBlogForm';
@@ -11,8 +9,7 @@ import Notification from './components/Notification';
 import Togglable from './components/Togglable';
 
 const App = () => {
-  const [user, setUser] = useState(null);
-
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,30 +17,13 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedUser');
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-      blogService.setToken(user.token);
-    }
+    dispatch(initializeUser());
   }, []);
 
-  const handleLogin = async (credentials) => {
-    try {
-      const user = await loginService.login(credentials);
-      window.localStorage.setItem('loggedUser', JSON.stringify(user));
-      blogService.setToken(user.token);
-      setUser(user);
-      dispatch(setNotification(`Welcome back, ${user.name}!`));
-    } catch (error) {
-      dispatch(setNotification('Invalid username or password', 'red'));
-    }
-  };
-
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedUser');
-    setUser(null);
-    dispatch(setNotification('Successfully logged out'));
+    // window.localStorage.removeItem('loggedUser');
+    // setUser(null);
+    // dispatch(setNotification('Successfully logged out'));
   };
 
   // const handleLike = async (blog) => {
@@ -72,7 +52,7 @@ const App = () => {
     return (
       <>
         <Notification />
-        <LoginForm handleLogin={handleLogin} />
+        <LoginForm />
       </>
     );
   }
@@ -89,7 +69,7 @@ const App = () => {
       <Togglable text="Add New Blog">
         <NewBlogForm />
       </Togglable>
-      <Blogs user={user} />
+      <Blogs />
     </div>
   );
 };

@@ -1,11 +1,15 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { handleLogin } from '../reducers/userReducer';
 
 const initialFormData = { username: '', password: '' };
 
-const LoginForm = ({ handleLogin }) => {
+const LoginForm = () => {
   const [formData, setFormData] = useState(initialFormData);
 
   const { username, password } = formData;
+
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -14,23 +18,15 @@ const LoginForm = ({ handleLogin }) => {
     }));
   };
 
-  const handleGuestAcc = async () => {
-    try {
-      await handleLogin({ username: 'Guest', password: 'guestpassword1' });
-      setFormData(initialFormData);
-    } catch (error) {
-      setFormData(initialFormData);
-    }
+  const handleGuestAcc = () => {
+    dispatch(handleLogin({ username: 'Guest', password: 'guestpassword1' }));
+    setFormData(initialFormData);
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    try {
-      await handleLogin(formData);
-      setFormData(initialFormData);
-    } catch (error) {
-      setFormData(initialFormData);
-    }
+    dispatch(handleLogin(formData));
+    setFormData(initialFormData);
   };
   return (
     <div>
