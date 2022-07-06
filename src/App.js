@@ -30,14 +30,14 @@ const App = () => {
     );
   }
   return (
-    <div>
+    <>
       <Notification />
       <Header />
       <Togglable text="Add New Blog">
         <NewBlogForm />
       </Togglable>
       <Blogs />
-    </div>
+    </>
   );
 };
 
