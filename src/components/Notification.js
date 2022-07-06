@@ -1,9 +1,8 @@
-const Notification = ({ notification, setNotification }) => {
-  if (notification !== null) {
-    setTimeout(() => {
-      setNotification(null);
-    }, 5000);
-  }
+import { useSelector } from 'react-redux';
+
+const Notification = () => {
+  const notification = useSelector((state) => state.notification);
+
   const notificationStyle = {
     color: notification?.color || '#2e9551',
     fontSize: 20,
@@ -15,7 +14,7 @@ const Notification = ({ notification, setNotification }) => {
 
   return (
     <>
-      {notification === null ? null : (
+      {!notification ? null : (
         <div className="notification" style={notificationStyle}>
           <p>{notification.text}</p>
         </div>

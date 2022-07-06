@@ -38,7 +38,7 @@ const LoginForm = ({ handleLogin }) => {
       <div className="mb-div">
         <p>
           <button type="button" onClick={handleGuestAcc}>
-            Use Guest Account
+            Guest Login
           </button>
         </p>
       </div>

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { blogService } from './services/blogs';
 import { loginService } from './services/login';
+import { useDispatch } from 'react-redux';
+import { setNotification } from './reducers/notificationReducer';
 import BlogItem from './components/BlogItem';
 import LoginForm from './components/LoginForm';
 import NewBlogForm from './components/NewBlogForm';
@@ -10,7 +12,8 @@ import Togglable from './components/Togglable';
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
-  const [notification, setNotification] = useState(null);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -35,9 +38,9 @@ const App = () => {
       window.localStorage.setItem('loggedUser', JSON.stringify(user));
       blogService.setToken(user.token);
       setUser(user);
-      setNotification({ text: `Welcome back, ${user.name}!` });
+      dispatch(setNotification(`Welcome back, ${user.name}!`));
     } catch (error) {
-      setNotification({ text: 'Invalid username or password', color: 'red' });
+      dispatch(setNotification('Invalid username or password', 'red'));
     }
   };
 
@@ -45,16 +48,16 @@ const App = () => {
     try {
       const createdBlog = await blogService.create(newBlog);
       setBlogs(blogs.concat(createdBlog));
-      setNotification({ text: `A new blog "${newBlog.title}" by ${newBlog.author} was added` });
+      dispatch(setNotification(`A new blog "${newBlog.title}" by ${newBlog.author} was added`));
     } catch (error) {
-      setNotification({ text: 'Error: blog could not be added', color: 'red' });
+      dispatch(setNotification('Error: blog could not be added', 'red'));
     }
   };
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser');
     setUser(null);
-    setNotification({ text: 'Successfully logged out' });
+    dispatch(setNotification('Successfully logged out'));
   };
 
   const handleLike = async (blog) => {
@@ -63,7 +66,7 @@ const App = () => {
       const updatedBlog = await blogService.update(blog.id, blogUpdate);
       setBlogs(blogs.map((b) => (b.id === blog.id ? updatedBlog : b)));
     } catch (error) {
-      setNotification({ text: 'Error: could not like this blog', color: 'red' });
+      dispatch(setNotification('Error: could not like this blog', 'red'));
     }
   };
 
@@ -72,10 +75,10 @@ const App = () => {
       if (window.confirm(`Delete blog "${blog.title}"?`)) {
         await blogService.deleteBlog(blog.id);
         setBlogs(blogs.filter((b) => b.id !== blog.id));
-        setNotification({ text: `Successfully deleted blog "${blog.title}"` });
+        dispatch(setNotification(`Successfully deleted blog "${blog.title}"`));
       }
     } catch (error) {
-      setNotification({ text: 'Error: could note delete this blog', color: 'red' });
+      dispatch(setNotification('Error: could note delete this blog', 'red'));
     }
   };
 
@@ -84,7 +87,7 @@ const App = () => {
   if (user === null) {
     return (
       <>
-        <Notification notification={notification} setNotification={setNotification} />
+        <Notification />
         <LoginForm handleLogin={handleLogin} />
       </>
     );
@@ -92,7 +95,7 @@ const App = () => {
   return (
     <div>
       <h2>Blogs</h2>
-      <Notification notification={notification} setNotification={setNotification} />
+      <Notification />
       <p>
         Hello, {user.name}{' '}
         <button type="button" onClick={handleLogout}>
