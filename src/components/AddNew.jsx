@@ -18,7 +18,7 @@ const AddNew = () => {
           <AddIcon />
         </Fab>
       </Tooltip>
-      <DialogWrap title="Add New" open={openDialog} setOpen={setOpenDialog}>
+      <DialogWrap title="Add New Blog" open={openDialog} setOpen={setOpenDialog}>
         <NewBlogForm />
       </DialogWrap>
     </>

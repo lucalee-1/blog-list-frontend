@@ -6,9 +6,6 @@ import AddNew from '../components/AddNew';
 const BlogList = () => {
   return (
     <>
-      <Togglable text="Add New Blog">
-        <NewBlogForm />
-      </Togglable>
       <Blogs />
       <AddNew />
     </>
