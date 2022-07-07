@@ -11,6 +11,7 @@ import Users from './pages/Users';
 import BlogList from './pages/BlogList';
 import User from './pages/User';
 import Blog from './pages/Blog';
+import { Container } from '@mui/system';
 
 const App = () => {
   const user = useSelector((state) => state.login);
@@ -41,12 +42,14 @@ const App = () => {
       <Notification />
       <Header />
       <Router>
-        <Routes>
-          <Route path="/" element={<BlogList />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/users/:id" element={<User />} />
-          <Route path="/blogs/:id" element={<Blog />} />
-        </Routes>
+        <Container>
+          <Routes>
+            <Route path="/" element={<BlogList />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/users/:id" element={<User />} />
+            <Route path="/blogs/:id" element={<Blog />} />
+          </Routes>
+        </Container>
       </Router>
     </>
   );
