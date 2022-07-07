@@ -1,23 +1,19 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { Alert } from '@mui/material';
+import { clearNotification } from '../reducers/notificationReducer';
 
 const Notification = () => {
   const notification = useSelector((state) => state.notification);
+  const dispatch = useDispatch();
 
-  const notificationStyle = {
-    color: notification?.color || '#2e9551',
-    fontSize: 20,
-    borderStyle: 'solid',
-    borderRadius: 3,
-    padding: 10,
-    marginBottom: 15,
-  };
+  const color = notification?.color || 'success';
 
   return (
     <>
       {!notification ? null : (
-        <div className="notification" style={notificationStyle}>
-          <p>{notification.text}</p>
-        </div>
+        <Alert severity={color} onClose={() => dispatch(clearNotification())}>
+          {notification.text}
+        </Alert>
       )}
     </>
   );

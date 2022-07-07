@@ -41,7 +41,7 @@ export const createBlog = (blog) => {
       dispatch(appendBlog(createdBlog));
       dispatch(setNotification(`A new blog "${blog.title}" by ${blog.author} was added`));
     } catch (error) {
-      dispatch(setNotification('Error: failed to add new blog', 'red'));
+      dispatch(setNotification('Error: failed to add new blog', 'error'));
     }
   };
 };
@@ -53,7 +53,7 @@ export const likeHandler = (blog) => {
       const updatedBlog = await blogService.update(blog.id, blogUpdate);
       dispatch(likeBlog(updatedBlog));
     } catch (error) {
-      dispatch(setNotification('Error: failed to like blog', 'red'));
+      dispatch(setNotification('Error: failed to like blog', 'error'));
     }
   };
 };
@@ -66,7 +66,7 @@ export const deleteHandler = (blog) => {
         dispatch(deleteBlog(blog.id));
         dispatch(setNotification(`Successfully deleted blog "${blog.title}"`));
       } catch (error) {
-        dispatch(setNotification(`Error: failed to delete blog "${blog.title}"`, 'red'));
+        dispatch(setNotification(`Error: failed to delete blog "${blog.title}"`, 'error'));
       }
     }
   };

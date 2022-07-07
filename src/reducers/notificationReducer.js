@@ -5,7 +5,7 @@ const notificationSlice = createSlice({
   initialState: null,
   reducers: {
     showNotification(state, action) {
-      return (state = { text: action.payload.text, color: action.payload?.color || '#2e9551' });
+      return (state = { text: action.payload.text, color: action.payload?.color });
     },
     clearNotification(state) {
       state = null;
@@ -22,7 +22,7 @@ export const setNotification = (text, color, duration) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
       dispatch(clearNotification());
-    }, duration || 5000);
+    }, duration || 6000);
   };
 };
 

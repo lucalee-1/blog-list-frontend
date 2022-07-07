@@ -36,7 +36,7 @@ export const handleLogin = (credentials) => {
       dispatch(setLoggedUser(user));
       dispatch(setNotification(`Welcome back, ${user.name}!`));
     } catch (error) {
-      dispatch(setNotification('Invalid username or password', 'red'));
+      dispatch(setNotification('Invalid username or password', 'error'));
     }
   };
 };
