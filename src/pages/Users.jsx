@@ -10,11 +10,25 @@ const Users = () => {
     };
     fetchUsers();
   }, []);
-  console.log(users);
   return (
     <>
       <h3>Users</h3>
-      <div></div>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Blogs added</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.name}</td>
+              <td> {user.blogs.length} </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 };
