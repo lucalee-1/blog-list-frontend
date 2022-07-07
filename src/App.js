@@ -5,6 +5,7 @@ import { initializeBlogs } from './reducers/blogReducer';
 import { initializeLogin } from './reducers/loginReducer';
 import { initializeUsers } from './reducers/userReducer';
 import LoginForm from './components/LoginForm';
+import NavBar from './components/Navbar';
 import Notification from './components/Notification';
 import Header from './components/Header';
 import Users from './pages/Users';
@@ -39,14 +40,16 @@ const App = () => {
   }
   return (
     <>
-      <Notification />
-      <Header />
       <Router>
+        <NavBar />
+        <Notification />
+        <Header />
         <Container>
           <Routes>
             <Route path="/" element={<BlogList />} />
             <Route path="/users" element={<Users />} />
             <Route path="/users/:id" element={<User />} />
+            <Route path="/blogs" element={<BlogList />} />
             <Route path="/blogs/:id" element={<Blog />} />
           </Routes>
         </Container>

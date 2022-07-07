@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 
 const User = () => {
   const id = useParams().id;
-  const user = useSelector((state) => state.users.filter((user) => user.id === id));
+  const user = useSelector((state) => state.users?.filter((user) => user.id === id));
   if (!user) {
     return null;
   }
