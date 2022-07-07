@@ -1,20 +1,33 @@
 import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
+import { Typography, List, ListItem, ListItemButton, Box } from '@mui/material';
 
 const User = () => {
   const id = useParams().id;
-  const user = useSelector((state) => state.users?.filter((user) => user.id === id));
+  const user = useSelector((state) => state.users?.filter((user) => user.id === id).pop());
   if (!user) {
     return null;
   }
   return (
-    <div>
-      <h3>{user[0].name}</h3>
-      <h4>Added Blogs</h4>
-      {user[0].blogs.map((blog) => (
-        <li key={blog.id}><Link to={`/blogs/${blog.id}`} >{blog.title}</Link></li>
-      ))}
-    </div>
+    <>
+      <Typography align="center" variant="h3" component="h3" sx={{ marginTop: 5, marginBottom: 5 }}>
+        {user.name}
+      </Typography>
+      <Box sx={{ marginBottom: 5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Typography variant="h6" component="p" sx={{ marginLeft: 4 }}>
+          Added Blogs
+        </Typography>
+        <List>
+          {user.blogs.map((blog) => (
+            <ListItem key={blog.id}>
+              <Link to={`/blogs/${blog.id}`} style={{ textDecoration: 'none' }}>
+                <ListItemButton>{blog.title}</ListItemButton>
+              </Link>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </>
   );
 };
 export default User;
