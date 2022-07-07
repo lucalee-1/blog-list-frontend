@@ -10,7 +10,7 @@ const Notification = () => {
 
   return (
     <>
-      {!notification ? null : (
+      {(!notification || !notification?.global) ? null : (
         <Alert severity={color} onClose={() => dispatch(clearNotification())}>
           {notification.text}
         </Alert>

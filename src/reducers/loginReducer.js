@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { setNotification } from './notificationReducer';
+import { setLocalNotification, setNotification } from './notificationReducer';
 import { blogService } from '../services/blogs';
 import { loginService } from '../services/login';
 
@@ -36,7 +36,7 @@ export const handleLogin = (credentials) => {
       dispatch(setLoggedUser(user));
       dispatch(setNotification(`Welcome back, ${user.name}!`));
     } catch (error) {
-      dispatch(setNotification('Invalid username or password', 'error'));
+      dispatch(setLocalNotification('Invalid username or password', 'error'));
     }
   };
 };
