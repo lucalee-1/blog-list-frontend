@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { handleLogin } from '../reducers/loginReducer';
+import { Box, Button, TextField, InputLabel, DialogActions } from '@mui/material';
 
 const initialFormData = { username: '', password: '' };
 
-const LoginForm = () => {
+const LoginForm = ({ closeDialog }) => {
   const [formData, setFormData] = useState(initialFormData);
 
   const { username, password } = formData;
@@ -21,6 +22,7 @@ const LoginForm = () => {
   const handleGuestAcc = () => {
     dispatch(handleLogin({ username: 'Guest', password: 'guestpassword1' }));
     setFormData(initialFormData);
+    closeDialog();
   };
 
   const onSubmit = (e) => {
@@ -29,29 +31,36 @@ const LoginForm = () => {
     setFormData(initialFormData);
   };
   return (
-    <div>
-      <h3>Log In</h3>
-      <div className="mb-div">
-        <p>
-          <button type="button" onClick={handleGuestAcc}>
-            Guest Login
-          </button>
-        </p>
-      </div>
+    <Box
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+    >
+      <Button
+        type="button"
+        color="secondary"
+        variant="contained"
+        disableElevation
+        onClick={handleGuestAcc}
+        sx={{ marginBottom: 2 }}
+      >
+        Guest Login
+      </Button>
       <form onSubmit={onSubmit}>
         <div>
-          <label htmlFor="username">Username</label>
-          <input
+          <InputLabel htmlFor="username">Username</InputLabel>
+          <TextField
             type="text"
             id="username"
             value={username}
             onChange={onChange}
             placeholder="Username"
+            required
           />
         </div>
         <div>
-          <label htmlFor="password">Password</label>
-          <input
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <TextField
             type="password"
             id="password"
             value={password}
@@ -59,11 +68,14 @@ const LoginForm = () => {
             placeholder="Password"
           />
         </div>
-        <button type="submit" id="loginButton">
-          Log In
-        </button>
+        <DialogActions>
+          <Button onClick={closeDialog}>Cancel</Button>
+          <Button type="submit" id="loginButton">
+            Log In
+          </Button>
+        </DialogActions>
       </form>
-    </div>
+    </Box>
   );
 };
 

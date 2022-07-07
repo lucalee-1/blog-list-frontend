@@ -50,7 +50,7 @@ const BlogItem = ({ blog, user }) => {
               Like
             </Button>
           </Badge>
-          {(blog.user.id === user.id || blog.user === user.id) && (
+          {(blog.user.id === user?.id || blog.user === user?.id) && (
             <Button type="button" onClick={() => dispatch(deleteHandler(blog))}>
               Delete
             </Button>
@@ -63,7 +63,6 @@ const BlogItem = ({ blog, user }) => {
 
 BlogItem.propTypes = {
   blog: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
 };
 
 export default BlogItem;

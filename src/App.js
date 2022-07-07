@@ -7,7 +7,6 @@ import { initializeUsers } from './reducers/userReducer';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/Navbar';
 import Notification from './components/Notification';
-import Header from './components/Header';
 import Users from './pages/Users';
 import BlogList from './pages/BlogList';
 import User from './pages/User';
@@ -30,20 +29,19 @@ const App = () => {
     dispatch(initializeUsers());
   }, []);
 
-  if (user === null) {
-    return (
-      <>
-        <Notification />
-        <LoginForm />
-      </>
-    );
-  }
+  // if (user === null) {
+  //   return (
+  //     <>
+  //       <Notification />
+  //       <LoginForm />
+  //     </>
+  //   );
+  // }
   return (
     <>
       <Router>
         <NavBar />
         <Notification />
-        <Header />
         <Container>
           <Routes>
             <Route path="/" element={<BlogList />} />
