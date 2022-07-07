@@ -3,25 +3,25 @@ import { setNotification } from './notificationReducer';
 import { blogService } from '../services/blogs';
 import { loginService } from '../services/login';
 
-const userSlice = createSlice({
-  name: 'user',
+const loginSlice = createSlice({
+  name: 'login',
   initialState: null,
   reducers: {
-    setUser(state, action) {
+    setLoggedUser(state, action) {
       return action.payload;
     },
-    deleteUser() {
+    deleteLoggedUser() {
       return null;
     },
   },
 });
 
-export const initializeUser = () => {
+export const initializeLogin = () => {
   return (dispatch) => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      dispatch(setUser(user));
+      dispatch(setLoggedUser(user));
       blogService.setToken(user.token);
     }
   };
@@ -33,7 +33,7 @@ export const handleLogin = (credentials) => {
       const user = await loginService.login(credentials);
       window.localStorage.setItem('loggedUser', JSON.stringify(user));
       blogService.setToken(user.token);
-      dispatch(setUser(user));
+      dispatch(setLoggedUser(user));
       dispatch(setNotification(`Welcome back, ${user.name}!`));
     } catch (error) {
       dispatch(setNotification('Invalid username or password', 'red'));
@@ -44,10 +44,10 @@ export const handleLogin = (credentials) => {
 export const handleLogout = () => {
   return (dispatch) => {
     window.localStorage.removeItem('loggedUser');
-    dispatch(deleteUser());
+    dispatch(deleteLoggedUser());
     dispatch(setNotification('Successfully logged out'));
   };
 };
 
-export const { setUser, deleteUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { setLoggedUser, deleteLoggedUser } = loginSlice.actions;
+export default loginSlice.reducer;

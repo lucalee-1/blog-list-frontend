@@ -2,7 +2,7 @@ import BlogItem from './BlogItem';
 import { useSelector } from 'react-redux';
 
 const Blogs = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.login);
   const blogs = useSelector((state) => state.blogs);
   let sortedBlogs = blogs?.slice().sort((a, b) => b.likes - a.likes);
   return (

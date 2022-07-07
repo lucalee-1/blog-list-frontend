@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { initializeBlogs } from './reducers/blogReducer';
-import { initializeUser } from './reducers/userReducer';
+import { initializeLogin } from './reducers/loginReducer';
 import LoginForm from './components/LoginForm';
 import Notification from './components/Notification';
 import Header from './components/Header';
@@ -10,15 +10,15 @@ import Users from './pages/Users';
 import BlogList from './pages/BlogList';
 
 const App = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(initializeBlogs());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
-    dispatch(initializeUser());
+    dispatch(initializeLogin());
   }, []);
 
   if (user === null) {

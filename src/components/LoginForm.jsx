@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { handleLogin } from '../reducers/userReducer';
+import { handleLogin } from '../reducers/loginReducer';
 
 const initialFormData = { username: '', password: '' };
 
