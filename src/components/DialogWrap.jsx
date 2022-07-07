@@ -1,8 +1,8 @@
+import { cloneElement } from 'react';
 import { useSelector } from 'react-redux';
-import LoginForm from './LoginForm';
 import { Dialog, DialogContent, DialogTitle, Alert } from '@mui/material';
 
-const LoginDialog = ({ open, setOpen }) => {
+const DialogWrap = ({ title = '', open, setOpen, children }) => {
   const handleClose = () => {
     setOpen(false);
   };
@@ -14,13 +14,11 @@ const LoginDialog = ({ open, setOpen }) => {
         {notification && !notification.global && (
           <Alert severity={notification.color}>{notification.text}</Alert>
         )}
-        <DialogTitle>Log In</DialogTitle>
-        <DialogContent>
-          <LoginForm closeDialog={handleClose} />
-        </DialogContent>
+        <DialogTitle>{title}</DialogTitle>
+        <DialogContent>{cloneElement(children, { closeDialog: handleClose })}</DialogContent>
       </Dialog>
     </div>
   );
 };
 
-export default LoginDialog;
+export default DialogWrap;

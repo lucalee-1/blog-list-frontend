@@ -17,7 +17,8 @@ import {
 } from '@mui/material';
 import { Book, Menu as MenuIcon, Login } from '@mui/icons-material';
 import { deepPurple } from '@mui/material/colors';
-import LoginDialog from './LoginDialog';
+import DialogWrap from './DialogWrap';
+import LoginForm from './LoginForm';
 
 const pages = ['Blogs', 'Users'];
 
@@ -183,7 +184,9 @@ const NavBar = () => {
                   Log In
                 </Button>
               </Box>
-              <LoginDialog open={openDialog} setOpen={setOpenDialog} />
+              <DialogWrap title="Log In" open={openDialog} setOpen={setOpenDialog}>
+                <LoginForm />
+              </DialogWrap>
             </>
           )}
         </Toolbar>
