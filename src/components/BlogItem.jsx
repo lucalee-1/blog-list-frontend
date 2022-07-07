@@ -32,11 +32,10 @@ const BlogItem = ({ blog, user }) => {
         sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
       >
         <CardActionArea onClick={() => navigate(`/blogs/${blog.id}`)}>
-          <CardContent>
+          <CardContent sx={{ p: 2.5 }}>
             <Typography variant="h6" component="p" color="text.primary" gutterBottom noWrap>
-              {blog.title}{' '}
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              {blog.title}</Typography>
+            <Typography sx={{ mb: 4 }} color="text.secondary">
               -{blog.author}
             </Typography>
             <Typography variant="body2" noWrap>

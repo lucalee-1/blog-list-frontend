@@ -1,6 +1,7 @@
 import BlogItem from './BlogItem';
 import { useSelector } from 'react-redux';
-import { Box, padding } from '@mui/system';
+import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
 
 const Blogs = () => {
   const user = useSelector((state) => state.login);
@@ -8,8 +9,10 @@ const Blogs = () => {
   let sortedBlogs = blogs?.slice().sort((a, b) => b.likes - a.likes);
   return (
     <main>
-      <h3>Blog List</h3>
-      <Box container gap={4} sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+      <Typography align="Center" variant="h3" component="h3" sx={{ marginTop: 5, marginBottom: 5 }}>
+        All Blogs
+      </Typography>
+      <Box container gap={4} sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', m: 2 }}>
         {sortedBlogs.map((blog) => (
           <BlogItem key={blog.id} blog={blog} user={user} />
         ))}
