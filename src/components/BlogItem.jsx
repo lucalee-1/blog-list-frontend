@@ -34,7 +34,7 @@ const BlogItem = ({ blog, user }) => {
             <Typography variant="h6" component="p" color="text.primary" gutterBottom noWrap>
               {blog.title}
             </Typography>
-            <Typography sx={{ mb: 4 }} color="text.secondary">
+            <Typography sx={{ mb: 3 }} color="text.secondary">
               -{blog.author}
             </Typography>
             <Typography variant="body2" noWrap>

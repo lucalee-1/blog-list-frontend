@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import BlogItem from '../components/BlogItem';
+import { Box } from '@mui/material';
 
 const Blog = () => {
   const id = useParams().id;
@@ -11,10 +12,9 @@ const Blog = () => {
     return null;
   }
   return (
-    <div>
-      <h3>{blog.title}</h3>
+    <Box sx={{ marginTop: 5, marginBottom: 5 }}>
       <BlogItem blog={blog} user={loggedUser} />
-    </div>
+    </Box>
   );
 };
 export default Blog;
