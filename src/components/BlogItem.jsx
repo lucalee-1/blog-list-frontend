@@ -1,7 +1,15 @@
 import { useDispatch } from 'react-redux';
 import { likeHandler, deleteHandler } from '../reducers/blogReducer';
 import PropTypes from 'prop-types';
-import { Button, Card, CardActionArea, CardActions, CardContent, Typography } from '@mui/material';
+import {
+  Badge,
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  Typography,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const BlogItem = ({ blog, user }) => {
@@ -31,13 +39,17 @@ const BlogItem = ({ blog, user }) => {
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               -{blog.author}
             </Typography>
-            <Typography variant="body2" noWrap>{blog.url}</Typography>
+            <Typography variant="body2" noWrap>
+              {blog.url}
+            </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button type="button" style={itemBtn} onClick={() => dispatch(likeHandler(blog))}>
-            Like
-          </Button>{' '}
+          <Badge color="secondary" badgeContent={blog.likes} overlap="circular">
+            <Button type="button" style={itemBtn} onClick={() => dispatch(likeHandler(blog))}>
+              Like
+            </Button>
+          </Badge>
           {(blog.user.id === user.id || blog.user === user.id) && (
             <Button type="button" onClick={() => dispatch(deleteHandler(blog))}>
               Delete
