@@ -10,8 +10,9 @@ import {
   CardActions,
   CardContent,
   Typography,
+  Tooltip,
 } from '@mui/material';
-import { FavoriteBorder } from '@mui/icons-material';
+import { Favorite, Delete as DeleteIcon } from '@mui/icons-material';
 
 const BlogItem = ({ blog, user }) => {
   const navigate = useNavigate();
@@ -20,10 +21,6 @@ const BlogItem = ({ blog, user }) => {
   const blogStyle = {
     border: 'solid',
     borderWidth: 1,
-  };
-
-  const itemBtn = {
-    marginLeft: 3,
   };
 
   return (
@@ -45,18 +42,32 @@ const BlogItem = ({ blog, user }) => {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
-          <Badge color="secondary" badgeContent={blog.likes} overlap="circular">
-            <Button type="button" style={itemBtn} onClick={() => dispatch(likeHandler(blog))}>
-              <FavoriteBorder/>
-            </Button>
-          </Badge>
-          {(blog.user.id === user?.id || blog.user === user?.id) && (
-            <Button type="button" onClick={() => dispatch(deleteHandler(blog))}>
-              Delete
-            </Button>
-          )}
-        </CardActions>
+        {user ? (
+          <CardActions>
+            <Tooltip title="Like">
+              <Button type="button" onClick={() => dispatch(likeHandler(blog))}>
+                <Badge color="secondary" badgeContent={blog.likes}>
+                  <Favorite />
+                </Badge>
+              </Button>
+            </Tooltip>
+            {(blog.user.id === user?.id || blog.user === user?.id) && (
+              <Tooltip title="Delete">
+                <Button type="button" onClick={() => dispatch(deleteHandler(blog))}>
+                  <DeleteIcon />
+                </Button>
+              </Tooltip>
+            )}
+          </CardActions>
+        ) : (
+          <CardActions>
+            <Tooltip title="Log In to like">
+              <Button type="button">
+                <Favorite />
+              </Button>
+            </Tooltip>
+          </CardActions>
+        )}
       </Card>
     </>
   );
