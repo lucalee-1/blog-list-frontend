@@ -14,7 +14,7 @@ const DialogWrap = ({ title = '', open, setOpen, children }) => {
         {notification && !notification.global && (
           <Alert severity={notification.color}>{notification.text}</Alert>
         )}
-        <DialogTitle>{title}</DialogTitle>
+        <DialogTitle variant="h5">{title}</DialogTitle>
         <DialogContent>{cloneElement(children, { closeDialog: handleClose })}</DialogContent>
       </Dialog>
     </div>
