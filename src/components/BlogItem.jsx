@@ -12,7 +12,7 @@ import {
   Typography,
   Tooltip,
 } from '@mui/material';
-import { Favorite, Delete as DeleteIcon } from '@mui/icons-material';
+import { Favorite, Delete as DeleteIcon, ArrowCircleRight } from '@mui/icons-material';
 
 const BlogItem = ({ blog, user }) => {
   const navigate = useNavigate();
@@ -42,8 +42,8 @@ const BlogItem = ({ blog, user }) => {
             </Typography>
           </CardContent>
         </CardActionArea>
-        {user ? (
-          <CardActions>
+        <CardActions>
+          {user ? (
             <Tooltip title="Like">
               <Button type="button" onClick={() => dispatch(likeHandler(blog))}>
                 <Badge color="secondary" badgeContent={blog.likes}>
@@ -51,23 +51,26 @@ const BlogItem = ({ blog, user }) => {
                 </Badge>
               </Button>
             </Tooltip>
-            {(blog.user.id === user?.id || blog.user === user?.id) && (
-              <Tooltip title="Delete">
-                <Button type="button" onClick={() => dispatch(deleteHandler(blog))}>
-                  <DeleteIcon />
-                </Button>
-              </Tooltip>
-            )}
-          </CardActions>
-        ) : (
-          <CardActions>
-            <Tooltip title="Log In to like">
+          ) : (
+            <Tooltip title="Log In to Like">
               <Button type="button">
                 <Favorite />
               </Button>
             </Tooltip>
-          </CardActions>
-        )}
+          )}
+          <Tooltip title="Visit Page">
+            <Button href={blog.url} target="_blank" rel="noreferrer">
+              <ArrowCircleRight />
+            </Button>
+          </Tooltip>
+          {(blog.user.id === user?.id || blog.user === user?.id) && (
+            <Tooltip title="Delete">
+              <Button type="button" onClick={() => dispatch(deleteHandler(blog))}>
+                <DeleteIcon />
+              </Button>
+            </Tooltip>
+          )}
+        </CardActions>
       </Card>
     </>
   );
