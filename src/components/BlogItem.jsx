@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { likeHandler, deleteHandler } from '../reducers/blogReducer';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Badge,
@@ -10,7 +11,7 @@ import {
   CardContent,
   Typography,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { FavoriteBorder } from '@mui/icons-material';
 
 const BlogItem = ({ blog, user }) => {
   const navigate = useNavigate();
@@ -34,7 +35,8 @@ const BlogItem = ({ blog, user }) => {
         <CardActionArea onClick={() => navigate(`/blogs/${blog.id}`)}>
           <CardContent sx={{ p: 2.5 }}>
             <Typography variant="h6" component="p" color="text.primary" gutterBottom noWrap>
-              {blog.title}</Typography>
+              {blog.title}
+            </Typography>
             <Typography sx={{ mb: 4 }} color="text.secondary">
               -{blog.author}
             </Typography>
@@ -46,7 +48,7 @@ const BlogItem = ({ blog, user }) => {
         <CardActions>
           <Badge color="secondary" badgeContent={blog.likes} overlap="circular">
             <Button type="button" style={itemBtn} onClick={() => dispatch(likeHandler(blog))}>
-              Like
+              <FavoriteBorder/>
             </Button>
           </Badge>
           {(blog.user.id === user?.id || blog.user === user?.id) && (

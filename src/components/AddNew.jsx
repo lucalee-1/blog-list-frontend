@@ -6,18 +6,24 @@ import DialogWrap from './DialogWrap';
 import NewBlogForm from './NewBlogForm';
 
 const AddNew = () => {
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const loggedUser = useSelector((state) => state.login);
 
   const handleClick = (e) => {
-    setOpen(e.currentTarget);
+    setAnchorEl(e.currentTarget);
+    setOpen(true);
   };
   return (
     <>
       <Tooltip
         title="Add New Blog"
         onClick={handleClick}
-        sx={{ position: 'fixed', bottom: 50, right: { xs: 'calc(50% - 28px)', sm: 30, md:50, lg: 70, xl:200 } }}
+        sx={{
+          position: 'fixed',
+          bottom: 50,
+          right: { xs: 'calc(50% - 28px)', sm: 30, md: 50, lg: 70, xl: 200 },
+        }}
       >
         <Fab color="primary">
           <AddIcon />
@@ -25,9 +31,9 @@ const AddNew = () => {
       </Tooltip>
       {!loggedUser ? (
         <Popover
-          open={Boolean(open)}
-          anchorEl={open}
-          onClose={() => setOpen(null)}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={() => setOpen(false)}
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'center',
