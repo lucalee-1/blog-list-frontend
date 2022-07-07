@@ -4,15 +4,7 @@ import { likeHandler, deleteHandler } from '../reducers/blogReducer';
 import PropTypes from 'prop-types';
 
 const BlogItem = ({ blog, user }) => {
-  const [showDetails, setshowDetails] = useState(false);
   const dispatch = useDispatch();
-
-  const hideDetails = { display: showDetails ? 'none' : '' };
-  const revealDetails = { display: showDetails ? '' : 'none' };
-
-  const toggleDetails = () => {
-    setshowDetails(!showDetails);
-  };
 
   const blogStyle = {
     paddingTop: 10,
@@ -28,20 +20,8 @@ const BlogItem = ({ blog, user }) => {
 
   return (
     <div style={blogStyle} className="blogItem">
-      <div style={hideDetails} className="noDetailsDiv">
-        <span>{blog.title} </span>
-        <span>
-          -<i>{blog.author}</i>
-        </span>
-        <button type="button" className="showBtn" style={itemBtn} onClick={toggleDetails}>
-          Show
-        </button>
-      </div>
-      <div style={revealDetails} className="detailsDiv">
+      <div>
         <span>{blog.title}</span>
-        <button type="button" className="hideBtn" style={itemBtn} onClick={toggleDetails}>
-          Hide
-        </button>
         <p>By {blog.author}</p>
         <a href={blog.url}>{blog.url}</a>
         <p>
