@@ -10,6 +10,7 @@ import Header from './components/Header';
 import Users from './pages/Users';
 import BlogList from './pages/BlogList';
 import User from './pages/User';
+import Blog from './pages/Blog';
 
 const App = () => {
   const user = useSelector((state) => state.login);
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/" element={<BlogList />} />
           <Route path="/users" element={<Users />} />
           <Route path="/users/:id" element={<User />} />
+          <Route path="/blogs/:id" element={<Blog />} />
         </Routes>
       </Router>
     </>
