@@ -17,7 +17,7 @@ const AddNew = () => {
       <Tooltip
         title="Add New Blog"
         onClick={handleClick}
-        sx={{ position: 'fixed', bottom: 40, right: { xs: 'calc(50% - 25px)', sm: 40 } }}
+        sx={{ position: 'fixed', bottom: 50, right: { xs: 'calc(50% - 28px)', sm: 30, md:50, lg: 70, xl:200 } }}
       >
         <Fab color="primary">
           <AddIcon />
