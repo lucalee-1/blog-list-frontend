@@ -112,7 +112,7 @@ const NavBar = () => {
           </Box>
           <Book sx={{ display: { xs: 'flex', sm: 'none' }, mr: 1 }} />
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
             href="/"
@@ -122,7 +122,7 @@ const NavBar = () => {
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.25rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
@@ -178,7 +178,17 @@ const NavBar = () => {
                   color="secondary"
                   variant="contained"
                   disableElevation
+                  sx={{ display: { xs: 'flex', sm: 'none' } }}
+                  onClick={() => setOpenDialog(true)}
+                >
+                  Login
+                </Button>
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  disableElevation
                   endIcon={<Login />}
+                  sx={{ display: { xs: 'none', sm: 'flex' } }}
                   onClick={() => setOpenDialog(true)}
                 >
                   Log In
