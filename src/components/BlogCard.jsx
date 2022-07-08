@@ -22,7 +22,7 @@ const BlogCard = ({ blog, user }) => {
     <>
       <Card
         variant="outlined"
-        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 2 }}
+        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
       >
         <CardActionArea onClick={() => navigate(`/blogs/${blog.id}`)}>
           <CardContent sx={{ p: 2.5 }}>

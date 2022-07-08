@@ -11,7 +11,7 @@ const Blog = () => {
   const loggedUser = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
-  const SquaredChip = styled(Chip)({ borderRadius: 2, component: 'button' });
+  const SquaredChip = styled(Chip)({ borderRadius: 8, component: 'button' });
 
   if (!blog) {
     return null;
@@ -28,7 +28,6 @@ const Blog = () => {
           clickable
           type="button"
           onClick={() => dispatch(likeHandler(blog))}
-          sx={{ borderRadius: 2 }}
         />
         <SquaredChip
           color="primary"
@@ -38,7 +37,6 @@ const Blog = () => {
           href={blog.url}
           target="_blank"
           rel="noreferrer"
-          sx={{ borderRadius: 2 }}
         />
         {(blog.user.id === loggedUser?.id || blog.user === loggedUser?.id) && (
           <SquaredChip

@@ -14,7 +14,6 @@ const BlogItem = ({ blog }) => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          borderRadius: 2,
         }}
       >
         <CardContent sx={{ p: 2.5 }}>
