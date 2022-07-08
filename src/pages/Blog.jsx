@@ -2,8 +2,25 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { likeHandler, deleteHandler } from '../reducers/blogReducer';
 import BlogItem from '../components/BlogItem';
-import { Box, Chip, Paper, styled } from '@mui/material';
-import { Favorite, Delete as DeleteIcon, ArrowCircleRight } from '@mui/icons-material';
+import {
+  Box,
+  Chip,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  styled,
+  TextField,
+  IconButton,
+} from '@mui/material';
+import {
+  Favorite,
+  Delete as DeleteIcon,
+  ArrowCircleRight,
+  ExpandMore,
+  Send,
+} from '@mui/icons-material';
+import Comments from '../components/Comments';
 
 const Blog = () => {
   const id = useParams().id;
@@ -11,7 +28,11 @@ const Blog = () => {
   const loggedUser = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
-  const SquaredChip = styled(Chip)({ borderRadius: 8, component: 'button' });
+  const SquaredChip = styled(Chip)({
+    borderRadius: 8,
+    component: 'button',
+    borderColor: '#e0e0e0',
+  });
 
   if (!blog) {
     return null;
@@ -28,6 +49,7 @@ const Blog = () => {
           clickable
           type="button"
           onClick={() => dispatch(likeHandler(blog))}
+          sx={{}}
         />
         <SquaredChip
           color="primary"
@@ -40,6 +62,7 @@ const Blog = () => {
         />
         {(blog.user.id === loggedUser?.id || blog.user === loggedUser?.id) && (
           <SquaredChip
+            variant="outlined"
             color="primary"
             label="Delete"
             icon={<DeleteIcon />}
@@ -48,6 +71,34 @@ const Blog = () => {
           />
         )}
       </Box>
+      <Accordion
+        sx={{
+          '.MuiPaper-root': {
+            border: 'none',
+            boxShadow: 'none',
+            backgroundColor: 'blue',
+          },
+          boxShadow: 'none',
+          borderStyle: 'solid',
+          borderWidth: 1,
+          borderColor: '#e0e0e0',
+          borderRadius: '8px',
+          '&:before': {
+            display: 'none',
+          },
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Comments</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Comments id={blog.id} comments={blog.comments} />
+        </AccordionDetails>
+      </Accordion>
     </Box>
   );
 };

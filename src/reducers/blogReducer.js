@@ -12,7 +12,7 @@ const blogSlice = createSlice({
     appendBlog(state, action) {
       state.push(action.payload);
     },
-    likeBlog(state, action) {
+    updateBlog(state, action) {
       const updatedBlog = action.payload;
       return state.map((blog) => (blog.id !== updatedBlog.id ? blog : updatedBlog));
     },
@@ -51,9 +51,20 @@ export const likeHandler = (blog) => {
     const blogUpdate = { likes: blog.likes + 1 };
     try {
       const updatedBlog = await blogService.update(blog.id, blogUpdate);
-      dispatch(likeBlog(updatedBlog));
+      dispatch(updateBlog(updatedBlog));
     } catch (error) {
       dispatch(setNotification('Error: failed to like blog', 'error'));
+    }
+  };
+};
+
+export const commentHandler = (id, comment) => {
+  return async (dispatch) => {
+    try {
+      const updatedBlog = await blogService.comment(id, { comment });
+      dispatch(updateBlog(updatedBlog));
+    } catch (error) {
+      dispatch(setNotification('Error: failed to add comment', 'error'));
     }
   };
 };
@@ -72,5 +83,5 @@ export const deleteHandler = (blog) => {
   };
 };
 
-export const { setBlogs, appendBlog, likeBlog, deleteBlog } = blogSlice.actions;
+export const { setBlogs, appendBlog, updateBlog, deleteBlog } = blogSlice.actions;
 export default blogSlice.reducer;
