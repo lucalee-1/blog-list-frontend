@@ -144,7 +144,7 @@ const NavBar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title={loggedUser.name}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar sx={{ bgcolor: deepPurple[500] }}></Avatar>
+                  <Avatar sx={{ bgcolor: '#E4D8DC' }}></Avatar>
                 </IconButton>
               </Tooltip>
               <Menu

@@ -25,7 +25,7 @@ const AddNew = () => {
           right: { xs: 'calc(50% - 28px)', sm: 30, md: 50, lg: 70, xl: 200 },
         }}
       >
-        <Fab color="primary">
+        <Fab color="secondary">
           <AddIcon />
         </Fab>
       </Tooltip>
