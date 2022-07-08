@@ -174,6 +174,7 @@ const NavBar = () => {
             <>
               <Box textAlign="center">
                 <Button
+                  className="loginBtn"
                   color="secondary"
                   variant="contained"
                   disableElevation
@@ -183,6 +184,7 @@ const NavBar = () => {
                   Login
                 </Button>
                 <Button
+                  className="loginBtn"
                   color="secondary"
                   variant="contained"
                   disableElevation

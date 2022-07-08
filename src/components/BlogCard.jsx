@@ -41,7 +41,7 @@ const BlogCard = ({ blog, user }) => {
           {user ? (
             <Tooltip title="Like">
               <Button type="button" onClick={() => dispatch(likeHandler(blog))}>
-                <Badge color="secondary" badgeContent={blog.likes}>
+                <Badge color="secondary" badgeContent={blog.likes} data-testid="likesCount">
                   <Favorite />
                 </Badge>
               </Button>

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, Typography, Link as MuiLink } from '@mui/material';
 
 const BlogItem = ({ blog }) => {
+  console.log(blog.user.name);
   return (
     <>
       <Card

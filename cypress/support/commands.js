@@ -1,5 +1,5 @@
 Cypress.Commands.add('login', ({ username, password }) => {
-  cy.request('POST', 'http://localhost:3003/api/login', {
+  cy.request('POST', 'http://localhost:3005/api/login', {
     username,
     password,
   }).then(({ body }) => {
@@ -10,7 +10,7 @@ Cypress.Commands.add('login', ({ username, password }) => {
 
 Cypress.Commands.add('createBlog', ({ title, author, url }) => {
   cy.request({
-    url: 'http://localhost:3003/api/blogs',
+    url: 'http://localhost:3005/api/blogs',
     method: 'POST',
     body: { title, author, url },
     headers: {
