@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { Typography, List, ListItem, ListItemButton, Box, Link as MuiLink } from '@mui/material';
+import { Typography, List, ListItem, ListItemButton, Box } from '@mui/material';
 
 const User = () => {
   const id = useParams().id;
@@ -19,8 +19,8 @@ const User = () => {
         </Typography>
         <List>
           {user.blogs.map((blog) => (
-            <ListItem key={blog.id}>
-              <ListItemButton component={Link} to={`/blogs/${blog.id}`}>
+            <ListItem key={blog.id} divider>
+              <ListItemButton component={Link} to={`/blogs/${blog.id}`} sx={{ color: '#93B5C6' }}>
                 {blog.title}
               </ListItemButton>
             </ListItem>
