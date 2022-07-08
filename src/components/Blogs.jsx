@@ -1,4 +1,4 @@
-import BlogItem from './BlogItem';
+import BlogCard from './BlogCard';
 import { useSelector } from 'react-redux';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
@@ -14,7 +14,7 @@ const Blogs = () => {
       </Typography>
       <Box container gap={4} sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', m: 2 }}>
         {sortedBlogs.map((blog) => (
-          <BlogItem key={blog.id} blog={blog} user={user} />
+          <BlogCard key={blog.id} blog={blog} user={user} />
         ))}
       </Box>
     </main>
