@@ -20,7 +20,7 @@ const User = () => {
         <List>
           {user.blogs.map((blog) => (
             <ListItem key={blog.id} divider>
-              <ListItemButton component={Link} to={`/blogs/${blog.id}`} sx={{ color: '#93B5C6' }}>
+              <ListItemButton component={Link} to={`/blogs/${blog.id}`} sx={{ color: '#6E85B7' }}>
                 {blog.title}
               </ListItemButton>
             </ListItem>
