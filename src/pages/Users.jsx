@@ -8,6 +8,7 @@ import {
   TableRow,
   TableCell,
   TableContainer,
+  Button,
   styled,
 } from '@mui/material';
 
@@ -39,7 +40,9 @@ const Users = () => {
             {sortedUsers.map((user) => (
               <TableRow key={user.id}>
                 <CenteredCell>
-                  <Link to={`/users/${user.id}`}>{user.name}</Link>
+                  <Button component={Link} to={`/users/${user.id}`}>
+                    {user.name}
+                  </Button>
                 </CenteredCell>
                 <CenteredCell>{user.blogs.length}</CenteredCell>
               </TableRow>
