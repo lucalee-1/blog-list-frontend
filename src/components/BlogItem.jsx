@@ -1,11 +1,6 @@
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, Typography, Link as MuiLink } from '@mui/material';
 
 const BlogItem = ({ blog }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   return (
     <>
       <Card

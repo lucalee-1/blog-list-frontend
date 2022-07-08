@@ -16,7 +16,6 @@ import {
   MenuItem,
 } from '@mui/material';
 import { Book, Menu as MenuIcon, Login } from '@mui/icons-material';
-import { deepPurple } from '@mui/material/colors';
 import DialogWrap from './DialogWrap';
 import LoginForm from './LoginForm';
 

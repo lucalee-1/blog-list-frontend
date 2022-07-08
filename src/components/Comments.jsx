@@ -35,13 +35,15 @@ const Comments = ({ id, comments }) => {
           }}
         />
       </form>
-      <List>
-        {comments.map((comment, i) => (
-          <ListItem key={i} divider>
-            {comment}
-          </ListItem>
-        ))}
-      </List>
+      {comments && (
+        <List>
+          {comments.map((comment, i) => (
+            <ListItem key={i} divider>
+              {comment}
+            </ListItem>
+          ))}
+        </List>
+      )}
     </>
   );
 };

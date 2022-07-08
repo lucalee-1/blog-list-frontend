@@ -39,7 +39,6 @@ const comment = async (id, comment) => {
   const config = {
     headers: { Authorization: token },
   };
-  console.log('axios', comment);
   const res = await axios.put(`${baseUrl}/${id}/comments`, comment, config);
   return res.data;
 };

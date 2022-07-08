@@ -10,15 +10,12 @@ import {
   AccordionDetails,
   Typography,
   styled,
-  TextField,
-  IconButton,
 } from '@mui/material';
 import {
   Favorite,
   Delete as DeleteIcon,
   ArrowCircleRight,
   ExpandMore,
-  Send,
 } from '@mui/icons-material';
 import Comments from '../components/Comments';
 
@@ -47,9 +44,7 @@ const Blog = () => {
           label="Like"
           icon={<Favorite />}
           clickable
-          type="button"
           onClick={() => dispatch(likeHandler(blog))}
-          sx={{}}
         />
         <SquaredChip
           color="primary"
