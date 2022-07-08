@@ -9,14 +9,10 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
+  Badge,
   styled,
 } from '@mui/material';
-import {
-  Favorite,
-  Delete as DeleteIcon,
-  ArrowCircleRight,
-  ExpandMore,
-} from '@mui/icons-material';
+import { Favorite, Delete as DeleteIcon, ArrowCircleRight, ExpandMore } from '@mui/icons-material';
 import Comments from '../components/Comments';
 
 const Blog = () => {
@@ -27,7 +23,6 @@ const Blog = () => {
 
   const SquaredChip = styled(Chip)({
     borderRadius: 8,
-    component: 'button',
     borderColor: '#e0e0e0',
   });
 
@@ -42,13 +37,18 @@ const Blog = () => {
           variant="outlined"
           color="primary"
           label="Like"
-          icon={<Favorite />}
+          icon={
+            <Badge color="secondary" badgeContent={blog.likes}>
+              <Favorite />
+            </Badge>
+          }
           clickable
           onClick={() => dispatch(likeHandler(blog))}
         />
         <SquaredChip
           color="primary"
           label="Visit"
+          component="button"
           icon={<ArrowCircleRight />}
           clickable
           href={blog.url}
