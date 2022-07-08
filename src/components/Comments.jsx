@@ -29,6 +29,7 @@ const Comments = ({ id, comments, loggedUser }) => {
           value={formData}
           disabled={Boolean(!loggedUser)}
           fullWidth
+          required
           InputProps={{
             endAdornment: (
               <IconButton color="primary" type="submit" disabled={Boolean(!loggedUser)}>
@@ -48,7 +49,9 @@ const Comments = ({ id, comments, loggedUser }) => {
             ))}
           </List>
         ) : (
-          <Typography variant="subtitle2" mt={2}>No comments yet.</Typography>
+          <Typography variant="subtitle2" mt={2}>
+            No comments yet.
+          </Typography>
         )}
       </Box>
     </>
