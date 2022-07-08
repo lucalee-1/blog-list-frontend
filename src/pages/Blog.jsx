@@ -20,7 +20,6 @@ const Blog = () => {
   const blog = useSelector((state) => state.blogs.filter((blog) => blog.id === id).pop());
   const loggedUser = useSelector((state) => state.login);
   const dispatch = useDispatch();
-
   const SquaredChip = styled(Chip)({
     borderRadius: 8,
     borderColor: '#e0e0e0',
@@ -91,7 +90,7 @@ const Blog = () => {
           <Typography>Comments</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Comments id={blog.id} comments={blog.comments} />
+          <Comments id={blog.id} comments={blog.comments} loggedUser={loggedUser} />
         </AccordionDetails>
       </Accordion>
     </Box>
