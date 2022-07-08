@@ -12,7 +12,7 @@ const BlogItem = ({ blog }) => {
         }}
       >
         <CardContent sx={{ p: 2.5 }}>
-          <Typography variant="h6" component="p" color="text.primary" gutterBottom noWrap>
+          <Typography variant="h6" component="p" color="text.primary" gutterBottom>
             {blog.title}
           </Typography>
           <Typography sx={{ mb: 3 }} color="text.secondary">
