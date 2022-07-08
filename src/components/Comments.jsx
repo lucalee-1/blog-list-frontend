@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { commentHandler } from '../reducers/blogReducer';
-import { TextField, IconButton, List, ListItem } from '@mui/material';
+import { TextField, IconButton, List, ListItem, Box, Typography } from '@mui/material';
 import { Send } from '@mui/icons-material';
 
 const Comments = ({ id, comments, loggedUser }) => {
@@ -38,15 +38,19 @@ const Comments = ({ id, comments, loggedUser }) => {
           }}
         />
       </form>
-      {comments && (
-        <List>
-          {comments.map((comment, i) => (
-            <ListItem key={i} divider>
-              {comment}
-            </ListItem>
-          ))}
-        </List>
-      )}
+      <Box mt={1}>
+        {comments ? (
+          <List disableGutters>
+            {comments.map((comment, i) => (
+              <ListItem key={i} divider>
+                {comment}
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <Typography variant="subtitle2" mt={2}>No comments yet.</Typography>
+        )}
+      </Box>
     </>
   );
 };

@@ -31,7 +31,7 @@ const Blog = () => {
   return (
     <Box sx={{ width: '70%', my: 5, mx: 'auto' }}>
       <BlogItem blog={blog} user={loggedUser} />
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <Box mt={1} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <SquaredChip
           variant="outlined"
           color="primary"
