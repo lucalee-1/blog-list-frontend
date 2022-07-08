@@ -33,7 +33,7 @@ const LoginForm = ({ closeDialog }) => {
   return (
     <Box
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '40ch' },
+        '& .MuiTextField-root': { m: 1, width: { xs: '30ch', sm: '50ch' } },
       }}
     >
       <Button

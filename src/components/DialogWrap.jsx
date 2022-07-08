@@ -9,7 +9,7 @@ const DialogWrap = ({ title = '', open, setOpen, children }) => {
   const notification = useSelector((state) => state.notification);
 
   return (
-    <div>
+    <>
       <Dialog open={open} onClose={handleClose}>
         {notification && !notification.global && (
           <Alert severity={notification.color}>{notification.text}</Alert>
@@ -17,7 +17,7 @@ const DialogWrap = ({ title = '', open, setOpen, children }) => {
         <DialogTitle variant="h5">{title}</DialogTitle>
         <DialogContent>{cloneElement(children, { closeDialog: handleClose })}</DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 };
 
