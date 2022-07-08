@@ -40,7 +40,7 @@ const Comments = ({ id, comments, loggedUser }) => {
       </form>
       <Box mt={1}>
         {comments ? (
-          <List disableGutters>
+          <List>
             {comments.map((comment, i) => (
               <ListItem key={i} divider>
                 {comment}

@@ -9,8 +9,10 @@ import {
   TableCell,
   TableContainer,
   Button,
+  Box,
   styled,
 } from '@mui/material';
+import BackButton from '../components/BackButton';
 
 const Users = () => {
   const users = useSelector((state) => state.users?.filter((user) => user.blogs.length > 0));
@@ -26,30 +28,33 @@ const Users = () => {
       <Typography align="center" variant="h3" component="h3" sx={{ marginTop: 5, marginBottom: 5 }}>
         Users
       </Typography>
-      <TableContainer
-        sx={{ marginTop: 5, marginBottom: 5, display: 'flex', justifyContent: 'center' }}
-      >
-        <Table sx={{ width: '70%' }}>
-          <TableHead>
-            <TableRow>
-              <CenteredCell>User Name</CenteredCell>
-              <CenteredCell>Blogs Added</CenteredCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {sortedUsers.map((user) => (
-              <TableRow key={user.id}>
-                <CenteredCell>
-                  <Button component={Link} to={`/users/${user.id}`}>
-                    {user.name}
-                  </Button>
-                </CenteredCell>
-                <CenteredCell>{user.blogs.length}</CenteredCell>
+      <Box sx={{ my: 5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <TableContainer
+          sx={{ display: 'flex', justifyContent: 'center' }}
+        >
+          <Table sx={{ width: { sm: '100%', md: '70%', lg: '60%' } }}>
+            <TableHead>
+              <TableRow>
+                <CenteredCell>User Name</CenteredCell>
+                <CenteredCell>Blogs Added</CenteredCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {sortedUsers.map((user) => (
+                <TableRow key={user.id}>
+                  <CenteredCell>
+                    <Button component={Link} to={`/users/${user.id}`}>
+                      {user.name}
+                    </Button>
+                  </CenteredCell>
+                  <CenteredCell>{user.blogs.length}</CenteredCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <BackButton />
+      </Box>
     </>
   );
 };

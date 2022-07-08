@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { Typography, List, ListItem, ListItemButton, Box } from '@mui/material';
+import BackButton from '../components/BackButton';
 
 const User = () => {
   const id = useParams().id;
@@ -26,6 +27,7 @@ const User = () => {
             </ListItem>
           ))}
         </List>
+        <BackButton />
       </Box>
     </>
   );

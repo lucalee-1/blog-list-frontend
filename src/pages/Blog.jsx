@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { Favorite, Delete as DeleteIcon, ArrowCircleRight, ExpandMore } from '@mui/icons-material';
 import Comments from '../components/Comments';
+import BackButton from '../components/BackButton';
 
 const Blog = () => {
   const id = useParams().id;
@@ -29,9 +30,12 @@ const Blog = () => {
     return null;
   }
   return (
-    <Box sx={{ width: '70%', my: 5, mx: 'auto' }}>
+    <Box sx={{ width: { sm: '100%', md: '70%', lg: '60%' }, my: 5, mx: 'auto' }}>
       <BlogItem blog={blog} user={loggedUser} />
-      <Box mt={1} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <Box
+        mt={1}
+        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+      >
         <SquaredChip
           variant="outlined"
           color="primary"
@@ -57,7 +61,7 @@ const Blog = () => {
         {(blog.user.id === loggedUser?.id || blog.user === loggedUser?.id) && (
           <SquaredChip
             variant="outlined"
-            color="primary"
+            color="warning"
             label="Delete"
             icon={<DeleteIcon />}
             clickable
@@ -66,6 +70,7 @@ const Blog = () => {
         )}
       </Box>
       <Accordion
+        defaultExpanded
         sx={{
           '.MuiPaper-root': {
             border: 'none',
@@ -93,6 +98,7 @@ const Blog = () => {
           <Comments id={blog.id} comments={blog.comments} loggedUser={loggedUser} />
         </AccordionDetails>
       </Accordion>
+      <BackButton />
     </Box>
   );
 };

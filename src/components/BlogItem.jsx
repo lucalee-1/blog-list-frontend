@@ -18,7 +18,7 @@ const BlogItem = ({ blog }) => {
           <Typography sx={{ mb: 3 }} color="text.secondary">
             -{blog.author}
           </Typography>
-          <MuiLink href={blog.url} variant="body2" noWrap>
+          <MuiLink href={blog.url} variant="body2">
             {blog.url}
           </MuiLink>
         </CardContent>
