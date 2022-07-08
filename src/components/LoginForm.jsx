@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { handleLogin } from '../reducers/loginReducer';
-import { Box, Button, TextField, InputLabel, DialogActions } from '@mui/material';
+import { Button, TextField, InputLabel, DialogActions } from '@mui/material';
 
 const initialFormData = { username: '', password: '' };
 
@@ -31,11 +31,7 @@ const LoginForm = ({ closeDialog }) => {
     setFormData(initialFormData);
   };
   return (
-    <Box
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: { xs: '30ch', sm: '50ch' } },
-      }}
-    >
+    <>
       <Button
         type="button"
         color="secondary"
@@ -75,7 +71,7 @@ const LoginForm = ({ closeDialog }) => {
           </Button>
         </DialogActions>
       </form>
-    </Box>
+    </>
   );
 };
 

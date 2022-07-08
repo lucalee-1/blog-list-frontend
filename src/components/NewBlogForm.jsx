@@ -22,11 +22,7 @@ const NewBlogForm = ({ closeDialog }) => {
   };
 
   return (
-    <Box
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: { xs: '30ch', sm: '50ch' } },
-      }}
-    >
+    <>
       <form onSubmit={onSubmit}>
         <div>
           <InputLabel htmlFor="title">Title</InputLabel>
@@ -45,7 +41,7 @@ const NewBlogForm = ({ closeDialog }) => {
           <Button type="submit">Save</Button>
         </DialogActions>
       </form>
-    </Box>
+    </>
   );
 };
 

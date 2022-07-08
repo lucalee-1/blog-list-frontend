@@ -15,7 +15,13 @@ const DialogWrap = ({ title = '', open, setOpen, children }) => {
           <Alert severity={notification.color}>{notification.text}</Alert>
         )}
         <DialogTitle variant="h5">{title}</DialogTitle>
-        <DialogContent>{cloneElement(children, { closeDialog: handleClose })}</DialogContent>
+        <DialogContent
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: { xs: '30ch', sm: '50ch' } },
+          }}
+        >
+          {cloneElement(children, { closeDialog: handleClose })}
+        </DialogContent>
       </Dialog>
     </>
   );
