@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent, Typography, Link as MuiLink } from '@mui/material';
 
-const BlogItem = ({ blog }) => {
+const BlogItem = ({ blog, loggedUser }) => {
+  console.log(loggedUser);
   return (
     <>
       <Card
@@ -22,11 +23,18 @@ const BlogItem = ({ blog }) => {
           <MuiLink href={blog.url} variant="body2">
             {blog.url}
           </MuiLink>
-          {blog.user.name && (
+          {blog.user.name ? (
             <Typography variant="subtitle2" align="right">
               Added by{' '}
               <MuiLink underline="hover" component={Link} to={`/users/${blog.user.id}`}>
                 {blog.user.name}
+              </MuiLink>
+            </Typography>
+          ) : (
+            <Typography variant="subtitle2" align="right">
+              Added by{' '}
+              <MuiLink underline="hover" component={Link} to={`/users/${loggedUser.id}`}>
+                {loggedUser.name}
               </MuiLink>
             </Typography>
           )}
