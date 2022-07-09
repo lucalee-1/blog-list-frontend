@@ -33,7 +33,7 @@ const App = () => {
         <NavBar />
         <Notification />
         <Container>
-          <Box height="100vh">
+          <Box minHeight="100vh">
             <Routes>
               <Route path="/" element={<BlogList />} />
               <Route path="/users" element={<Users />} />
