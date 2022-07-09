@@ -11,6 +11,7 @@ const Comments = ({ id, comments, loggedUser }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (formData.trim().length < 1) {
+      setFormData('');
       return;
     }
     dispatch(commentHandler(id, formData));
