@@ -67,6 +67,14 @@ describe('Blog app', function () {
         cy.get('.MuiAlert-message').contains('Successfully deleted blog "A test blog"');
         cy.contains('testblog.com').should('not.exist');
       });
+      it.only('it leads to details page when clicked', function () {
+        cy.get('.MuiCardActionArea-root').click();
+        cy.contains('Added by Test User');
+      });
+      it('it is counted under "Blogs Added" in the Users table', function () {
+        cy.contains('Users').click();
+        cy.get('.MuiTableRow-root').should('contain', 'Test User').and('contain', '1');
+      });
     });
 
     describe('and multiple blogs exist', function () {
@@ -80,9 +88,19 @@ describe('Blog app', function () {
         cy.get('[data-testid="FavoriteIcon"]').eq(1).click();
         cy.get('[data-testid="FavoriteIcon"]').eq(2).click().wait(500).click();
 
-        cy.get('.MuiCard-root').eq(0).should('contain', 'Most liked').and('contain', '2');
+        cy.wait(500).get('.MuiCard-root').eq(0).should('contain', 'Most liked').and('contain', '2');
         cy.get('.MuiCard-root').eq(1).should('contain', 'Second most liked').and('contain', '1');
         cy.get('.MuiCard-root').eq(2).should('contain', 'No likes');
+      });
+      it.only('blogs are listed on the page of the user that added them', function () {
+        cy.contains('Users').click();
+        cy.get('.MuiTableRow-root').contains('3');
+        cy.get('.MuiTableRow-root').contains('Test User').click();
+        cy.wait(500);
+        cy.get('.MuiList-root')
+          .should('contain', 'No likes')
+          .and('contain', 'Second most liked')
+          .and('contain', 'Most liked');
       });
     });
   });
