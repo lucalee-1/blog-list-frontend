@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, Typography, Link as MuiLink } from '@mui/material';
 
 const BlogItem = ({ blog }) => {
-  console.log(blog.user.name);
   return (
     <>
       <Card
@@ -23,12 +22,14 @@ const BlogItem = ({ blog }) => {
           <MuiLink href={blog.url} variant="body2">
             {blog.url}
           </MuiLink>
-          <Typography variant="subtitle2" align="right">
-            Added by{' '}
-            <MuiLink underline="hover" component={Link} to={`/users/${blog.user.id}`}>
-              {blog.user.name}
-            </MuiLink>
-          </Typography>
+          {blog.user.name && (
+            <Typography variant="subtitle2" align="right">
+              Added by{' '}
+              <MuiLink underline="hover" component={Link} to={`/users/${blog.user.id}`}>
+                {blog.user.name}
+              </MuiLink>
+            </Typography>
+          )}
         </CardContent>
       </Card>
     </>

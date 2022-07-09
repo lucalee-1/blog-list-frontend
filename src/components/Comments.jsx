@@ -10,6 +10,9 @@ const Comments = ({ id, comments, loggedUser }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (formData.trim().length < 1) {
+      return;
+    }
     dispatch(commentHandler(id, formData));
     setFormData('');
   };
@@ -24,12 +27,11 @@ const Comments = ({ id, comments, loggedUser }) => {
     <>
       <form onSubmit={onSubmit}>
         <TextField
-          placeholder={placeholderText}
+          label={placeholderText}
           onChange={onChange}
           value={formData}
           disabled={Boolean(!loggedUser)}
           fullWidth
-          required
           InputProps={{
             endAdornment: (
               <IconButton color="primary" type="submit" disabled={Boolean(!loggedUser)}>
