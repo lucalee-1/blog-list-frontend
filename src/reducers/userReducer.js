@@ -9,12 +9,16 @@ const userSlice = createSlice({
       return action.payload;
     },
     updateUserBlogs(state, action) {
-      const id = action.payload.id;
-      console.log(id);
-      // const updatedUser = state.filter((u) => u.id === id);
-      // console.log(updatedUser);
-      // updatedUser.blogs.push(action.payload.blog);
-      // return state.map((user) => (user.id !== id ? user : updatedUser));
+      const userId = action.payload.user.id;
+      state.find((u) => u.id === userId).blogs.push(action.payload);
+    },
+    deleteUserBlogs(state, action) {
+      const userId = action.payload.user.id;
+      const updatedUser = state.find((u) => u.id === userId);
+      updatedUser.blogs.splice(
+        updatedUser.blogs.findIndex((blog) => blog.id === action.payload.id),
+        1
+      );
     },
   },
 });
@@ -26,5 +30,5 @@ export const initializeUsers = () => {
   };
 };
 
-export const { setUsers, updateUserBlogs } = userSlice.actions;
+export const { setUsers, updateUserBlogs, deleteUserBlogs } = userSlice.actions;
 export default userSlice.reducer;

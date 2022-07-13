@@ -12,7 +12,7 @@ import {
   Box,
   styled,
 } from '@mui/material';
-import BackButton from '../components/BackButton';
+import NavButton from '../components/NavButton';
 
 const Users = () => {
   const users = useSelector((state) => state.users?.filter((user) => user.blogs.length > 0));
@@ -53,7 +53,7 @@ const Users = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <BackButton />
+        <NavButton />
       </Box>
     </>
   );

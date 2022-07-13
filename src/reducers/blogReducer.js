@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { blogService } from '../services/blogs';
 import { setNotification } from './notificationReducer';
-import { updateUserBlogs } from './userReducer';
+import { deleteUserBlogs, updateUserBlogs } from './userReducer';
 
 const blogSlice = createSlice({
   name: 'blogs',
@@ -77,6 +77,7 @@ export const deleteHandler = (blog) => {
       try {
         await blogService.deleteBlog(blog.id);
         dispatch(deleteBlog(blog.id));
+        dispatch(deleteUserBlogs(blog));
         dispatch(setNotification(`Successfully deleted blog "${blog.title}"`));
       } catch (error) {
         dispatch(setNotification(`Error: failed to delete blog "${blog.title}"`, 'error'));

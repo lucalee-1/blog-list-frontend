@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { initializeBlogs } from './reducers/blogReducer';
 import { initializeLogin } from './reducers/loginReducer';
 import { initializeUsers } from './reducers/userReducer';
@@ -40,6 +40,7 @@ const App = () => {
               <Route path="/users/:id" element={<User />} />
               <Route path="/blogs" element={<BlogList />} />
               <Route path="/blogs/:id" element={<Blog />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </Box>
         </Container>

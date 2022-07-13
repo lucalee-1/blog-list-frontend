@@ -1,14 +1,17 @@
 import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { Typography, List, ListItem, ListItemButton, Box } from '@mui/material';
-import BackButton from '../components/BackButton';
+import NavButton from '../components/NavButton';
+import NotFound from '../components/NotFound';
 
 const User = () => {
   const id = useParams().id;
   const user = useSelector((state) => state.users?.filter((user) => user.id === id).pop());
+
   if (!user) {
-    return null;
+    return <NotFound resource="User" />;
   }
+
   return (
     <>
       <Typography align="center" variant="h3" component="h3" sx={{ marginTop: 5, marginBottom: 5 }}>
@@ -27,7 +30,7 @@ const User = () => {
             </ListItem>
           ))}
         </List>
-        <BackButton />
+        <NavButton />
       </Box>
     </>
   );

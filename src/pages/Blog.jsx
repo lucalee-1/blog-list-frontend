@@ -5,14 +5,15 @@ import { Box, Accordion, AccordionSummary, AccordionDetails, Typography } from '
 import { ExpandMore } from '@mui/icons-material';
 import BlogActions from '../components/BlogActions';
 import Comments from '../components/Comments';
-import BackButton from '../components/BackButton';
+import NavButton from '../components/NavButton';
+import NotFound from '../components/NotFound';
 
 const Blog = () => {
   const id = useParams().id;
   const blog = useSelector((state) => state.blogs.filter((blog) => blog.id === id).pop());
   const loggedUser = useSelector((state) => state.login);
   if (!blog) {
-    return null;
+    return <NotFound resource="Blog" />;
   }
   return (
     <Box sx={{ width: { sm: '100%', md: '70%', lg: '60%' }, my: 5, mx: 'auto' }}>
@@ -47,7 +48,7 @@ const Blog = () => {
           <Comments id={blog.id} comments={blog.comments} loggedUser={loggedUser} />
         </AccordionDetails>
       </Accordion>
-      <BackButton />
+      <NavButton />
     </Box>
   );
 };
