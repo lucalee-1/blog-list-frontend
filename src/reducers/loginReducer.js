@@ -21,6 +21,9 @@ export const initializeLogin = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
+      if (new Date().getTime() < user.tokenExpiry) {
+        return dispatch(handleLogout);
+      }
       dispatch(setLoggedUser(user));
       blogService.setToken(user.token);
     }
