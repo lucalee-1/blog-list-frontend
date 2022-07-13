@@ -14,11 +14,15 @@ const User = () => {
 
   return (
     <>
-      <Typography align="center" variant="h3" component="h3" sx={{ marginTop: 5, marginBottom: 5 }}>
-        {user.name}
-      </Typography>
       <Box sx={{ marginBottom: 5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography variant="h6" component="p" sx={{ marginLeft: 4 }}>
+        <Typography
+          variant="h3"
+          component="h3"
+          sx={{ marginTop: 5, marginBottom: 5 }}
+        >
+          {user.name}
+        </Typography>
+        <Typography variant="h6" component="p">
           Added Blogs
         </Typography>
         <List>
