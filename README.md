@@ -5,4 +5,4 @@ Built with: HTML, CSS, MUI, React, React Router, Redux. Testing: Jest, React Tes
 
 Live at: https://bloglist-app1.herokuapp.com/
 
-Frontend code at: https://github.com/lucalee-1/blog-list
+Backend code at: https://github.com/lucalee-1/blog-list
